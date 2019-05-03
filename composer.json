@@ -1,0 +1,12 @@
+{
+  "name": "magento/magento-cloud-components",
+  "description": "Cloud Components Module for Magento 2.x",
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Magento\\CloudComponents\\": ""
+    }
+  }
+}
