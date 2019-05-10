@@ -55,7 +55,7 @@ class ConfigShowStoreUrlCommand extends Command
         $this->addOption(
             self::INPUT_OPTION_ALL,
             'a',
-            InputOption::VALUE_OPTIONAL,
+            InputOption::VALUE_NONE,
             'Return urls for all stores'
         );
 
