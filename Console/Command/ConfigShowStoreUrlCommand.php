@@ -43,7 +43,6 @@ class ConfigShowStoreUrlCommand extends Command
 
     /**
      * @inheritdoc
-     * @since 101.0.0
      */
     protected function configure()
     {

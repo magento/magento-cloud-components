@@ -10,6 +10,7 @@
         <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="сonfigShowStoreUrlCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigShowStoreUrlCommand</item>
+                <item name="сonfigGetRewriteUrlsCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigGetRewriteUrlsCommand</item>
             </argument>
         </arguments>
     </type>
