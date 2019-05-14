@@ -150,7 +150,7 @@ class ConfigGetRewriteUrlsCommand extends Command
             $categories = $categoryCollection
                 ->addAttributeToSelect('*')
                 ->addFieldToFilter('is_active', 1)
-                ->addRootLevelFilter()
+                ->addFieldToFilter('level', ['gt' => 1])
                 ->setStoreId($store);
 
             /** @var Category $category */
