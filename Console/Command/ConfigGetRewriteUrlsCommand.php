@@ -176,7 +176,7 @@ class ConfigGetRewriteUrlsCommand extends Command
             $entities = $this->urlFinder->findAllByData($dataFilter);
             $this->url->setScope($store->getId());
             foreach ($entities as $urlRewrite) {
-                $urls[] = $this->url->getUrl($urlRewrite->getTargetPath());
+                $urls[] = $this->url->getUrl($urlRewrite->getRequestPath());
             }
         }
 
