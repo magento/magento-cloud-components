@@ -9,8 +9,8 @@
     <type name="Magento\Framework\Console\CommandListInterface">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="сonfigShowStoreUrlCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigShowStoreUrlCommand</item>
-                <item name="сonfigGetRewriteUrlsCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigGetRewriteUrlsCommand</item>
+                <item name="configShowStoreUrlCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigShowStoreUrlCommand</item>
+                <item name="configShowEntityUrlsCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigShowEntityUrlsCommand</item>
             </argument>
         </arguments>
     </type>

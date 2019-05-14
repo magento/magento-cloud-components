@@ -23,7 +23,7 @@ use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 /**
  * Returns list of category or cms-page urls for given stores
  */
-class ConfigGetRewriteUrlsCommand extends Command
+class ConfigShowEntityUrlsCommand extends Command
 {
     const INPUT_OPTION_STORE_ID = 'store-id';
     const INPUT_OPTION_ENTITY_TYPE = 'entity-type';
@@ -88,9 +88,9 @@ class ConfigGetRewriteUrlsCommand extends Command
             'Entity type: ' . implode(',', $this->possibleEntities)
         );
 
-        $this->setName('config:get:rewrite-urls')
+        $this->setName('config:show:urls')
             ->setDescription(
-                'Returns urls for given id store id, entity type and regex pattern.'
+                'Returns urls for entity type and given store id or for all stores if store id isn\'t provided.'
             );
         parent::configure();
     }
