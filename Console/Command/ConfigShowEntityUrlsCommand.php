@@ -5,8 +5,6 @@
  */
 namespace Magento\CloudComponents\Console\Command;
 
-use Magento\Catalog\Model\Category;
-use Magento\Catalog\Model\ResourceModel\Category\Collection;
 use Magento\Framework\Console\Cli;
 use Magento\Framework\UrlInterface;
 use Magento\Store\Api\Data\StoreInterface;
@@ -17,7 +15,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
 use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
 /**
@@ -32,11 +29,6 @@ class ConfigShowEntityUrlsCommand extends Command
      * @var StoreManagerInterface
      */
     private $storeManager;
-
-    /**
-     * @var CategoryCollectionFactory
-     */
-    private $categoryFactory;
 
     /**
      * @var UrlFinderInterface
@@ -58,12 +50,10 @@ class ConfigShowEntityUrlsCommand extends Command
      */
     public function __construct(
         StoreManagerInterface $storeManager,
-        CategoryCollectionFactory $categoryFactory,
         UrlFinderInterface $urlFinder,
         UrlInterface $url
     ) {
         $this->storeManager = $storeManager;
-        $this->categoryFactory = $categoryFactory;
         $this->urlFinder = $urlFinder;
         $this->url = $url;
 
@@ -121,12 +111,7 @@ class ConfigShowEntityUrlsCommand extends Command
                 $stores = [$this->storeManager->getStore($storeId)];
             }
 
-            $urls = [];
-            if ($entityType === Rewrite::ENTITY_TYPE_CATEGORY) {
-                $urls = $this->getCategoryUrls($stores);
-            } elseif ($entityType === Rewrite::ENTITY_TYPE_CMS_PAGE) {
-                $urls = $this->getCmsPageUrls($stores);
-            }
+            $urls = $this->getPageUrls($stores, $entityType);
 
             $output->write(json_encode(array_unique($urls)));
             return Cli::RETURN_SUCCESS;
@@ -138,42 +123,17 @@ class ConfigShowEntityUrlsCommand extends Command
 
     /**
      * @param StoreInterface[] $stores
-     * @return array
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    private function getCategoryUrls(array $stores)
-    {
-        $urls = [];
-        foreach ($stores as $store) {
-            /** @var Collection $categoryCollection */
-            $categoryCollection = $this->categoryFactory->create();
-            $categories = $categoryCollection
-                ->addAttributeToSelect('*')
-                ->addFieldToFilter('is_active', 1)
-                ->addFieldToFilter('level', ['gt' => 1])
-                ->setStoreId($store);
-
-            /** @var Category $category */
-            foreach ($categories as $category){
-                $urls[] = $category->getUrl();
-            }
-        }
-
-        return $urls;
-    }
-
-    /**
-     * @param StoreInterface[] $stores
+     * @param string $entityType
      * @return array
      */
-    private function getCmsPageUrls(array $stores)
+    private function getPageUrls(array $stores, string $entityType): array
     {
         $urls = [];
 
         foreach ($stores as $store) {
             $dataFilter = [];
             $dataFilter[UrlRewrite::STORE_ID] = $store->getId();
-            $dataFilter[UrlRewrite::ENTITY_TYPE] = Rewrite::ENTITY_TYPE_CMS_PAGE;
+            $dataFilter[UrlRewrite::ENTITY_TYPE] = $entityType;
             $entities = $this->urlFinder->findAllByData($dataFilter);
             $this->url->setScope($store->getId());
             foreach ($entities as $urlRewrite) {
