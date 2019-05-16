@@ -131,10 +131,10 @@ class ConfigShowEntityUrlsCommand extends Command
         $urls = [];
 
         foreach ($stores as $store) {
-            $dataFilter = [];
-            $dataFilter[UrlRewrite::STORE_ID] = $store->getId();
-            $dataFilter[UrlRewrite::ENTITY_TYPE] = $entityType;
-            $entities = $this->urlFinder->findAllByData($dataFilter);
+            $entities = $this->urlFinder->findAllByData([
+                UrlRewrite::STORE_ID => $store->getId(),
+                UrlRewrite::ENTITY_TYPE => $entityType
+            ]);
             $this->url->setScope($store->getId());
             foreach ($entities as $urlRewrite) {
                 $urls[] = $this->url->getUrl($urlRewrite->getRequestPath());
