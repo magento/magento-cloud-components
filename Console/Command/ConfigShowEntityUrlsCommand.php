@@ -5,7 +5,10 @@
  */
 namespace Magento\CloudComponents\Console\Command;
 
+use Magento\Framework\App\Area;
+use Magento\Framework\App\State;
 use Magento\Framework\Console\Cli;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\UrlInterface;
 use Magento\Store\Api\Data\StoreInterface;
 use Magento\Store\Model\StoreManagerInterface;
@@ -41,6 +44,11 @@ class ConfigShowEntityUrlsCommand extends Command
     private $url;
 
     /**
+     * @var State
+     */
+    private $state;
+
+    /**
      * @var array
      */
     private $possibleEntities = [Rewrite::ENTITY_TYPE_CMS_PAGE, Rewrite::ENTITY_TYPE_CATEGORY];
@@ -51,11 +59,13 @@ class ConfigShowEntityUrlsCommand extends Command
     public function __construct(
         StoreManagerInterface $storeManager,
         UrlFinderInterface $urlFinder,
-        UrlInterface $url
+        UrlInterface $url,
+        State $state
     ) {
         $this->storeManager = $storeManager;
         $this->urlFinder = $urlFinder;
         $this->url = $url;
+        $this->state = $state;
 
         parent::__construct();
     }
@@ -93,6 +103,7 @@ class ConfigShowEntityUrlsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try {
+            $this->setArea();
             $entityType = $input->getOption(self::INPUT_OPTION_ENTITY_TYPE);
             if (!in_array($entityType, $this->possibleEntities)) {
                 $output->write(sprintf(
@@ -142,5 +153,16 @@ class ConfigShowEntityUrlsCommand extends Command
         }
 
         return $urls;
+    }
+
+    /**
+     * Sets area code. Ignore if area code is already set
+     */
+    private function setArea()
+    {
+        try {
+            $this->state->setAreaCode(Area::AREA_GLOBAL);
+        } catch (LocalizedException $e) {
+        }
     }
 }
