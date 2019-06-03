@@ -10,7 +10,7 @@ Magento Cloud Components is a Magento module, designed to extend core functional
 
 Each Magento source file included in this distribution is licensed under OSL 3.0 or the Magento Customer Agreement.
 
-[Open Software License (OSL 3.0)](https://opensource.org/licenses/osl-3.0.php). Please see [LICENSE.txt](LICENSE.txt) for the full text of the OSL 3.0 license or contact [engcom@adobe.com](mailto:engcom@adobe.com) for a copy.
+[Open Software License (OSL 3.0)](https://opensource.org/licenses/osl-3.0.php). Please see [LICENSE_OSL.txt](LICENSE_OSL.txt) for the full text of the OSL 3.0 license or contact [engcom@adobe.com](mailto:engcom@adobe.com) for a copy.
 
 Subject to Licensee's payment of fees and compliance with the terms and conditions of the Customer Agreement, the Customer Agreement supersedes the OSL 3.0 license for each source file. Please visit https://magento.com/legal/terms for the full text of the
 Customer Agreement.
