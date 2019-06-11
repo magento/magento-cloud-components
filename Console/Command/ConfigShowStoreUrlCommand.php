@@ -20,7 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ConfigShowStoreUrlCommand extends Command
 {
-    /**#@+
+    /**
      * Names of input arguments or options.
      */
     const INPUT_ARGUMENT_STORE_ID = 'store-id';
