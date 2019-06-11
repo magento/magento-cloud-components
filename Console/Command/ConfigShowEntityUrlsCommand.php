@@ -78,6 +78,11 @@ class ConfigShowEntityUrlsCommand extends Command
      */
     protected function configure()
     {
+        $this->setName('config:show:urls')
+            ->setDescription(
+                'Returns urls for entity type and given store id or for all stores if store id isn\'t provided.'
+            );
+
         $this->addOption(
             self::INPUT_OPTION_STORE_ID,
             null,
@@ -91,10 +96,6 @@ class ConfigShowEntityUrlsCommand extends Command
             'Entity type: ' . implode(',', $this->possibleEntities)
         );
 
-        $this->setName('config:show:urls')
-            ->setDescription(
-                'Returns urls for entity type and given store id or for all stores if store id isn\'t provided.'
-            );
         parent::configure();
     }
 

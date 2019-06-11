@@ -3,6 +3,10 @@
   "description": "Cloud Components Module for Magento 2.x",
   "type": "magento2-module",
   "version": "1.0.0",
+  "require": {
+    "php": "^7.0",
+    "ext-json": "*"
+  },
   "autoload": {
     "files": [ "registration.php" ],
     "psr-4": {

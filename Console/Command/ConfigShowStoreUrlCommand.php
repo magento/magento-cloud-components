@@ -46,6 +46,11 @@ class ConfigShowStoreUrlCommand extends Command
      */
     protected function configure()
     {
+        $this->setName('config:show:store-url')
+            ->setDescription(
+                'Shows store base url for given id.'
+            );
+
         $this->addArgument(
             self::INPUT_ARGUMENT_STORE_ID,
             InputArgument::OPTIONAL,
@@ -58,10 +63,6 @@ class ConfigShowStoreUrlCommand extends Command
             'Return urls for all stores'
         );
 
-        $this->setName('config:show:store-url')
-            ->setDescription(
-                'Shows store base url for given id.'
-            );
         parent::configure();
     }
 
