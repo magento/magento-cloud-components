@@ -5,7 +5,10 @@
   "version": "1.0.0",
   "require": {
     "php": "^7.0",
-    "ext-json": "*"
+    "ext-json": "*",
+    "magento/framework": "*",
+    "magento/module-store": "*",
+    "magento/module-url-rewrite": "*"
   },
   "autoload": {
     "files": [ "registration.php" ],
