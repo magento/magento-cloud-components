@@ -25,6 +25,9 @@ use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
  */
 class ConfigShowEntityUrlsCommand extends Command
 {
+    /**#@+
+     * Names of input arguments or options.
+     */
     const INPUT_OPTION_STORE_ID = 'store-id';
     const INPUT_OPTION_ENTITY_TYPE = 'entity-type';
 
