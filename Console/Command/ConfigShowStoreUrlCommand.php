@@ -21,10 +21,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ConfigShowStoreUrlCommand extends Command
 {
     /**
-     * Names of input arguments or options.
+     * Name of input argument.
      */
     const INPUT_ARGUMENT_STORE_ID = 'store-id';
-    const INPUT_OPTION_ALL = 'all';
 
     /**
      * @var StoreManagerInterface
@@ -48,19 +47,13 @@ class ConfigShowStoreUrlCommand extends Command
     {
         $this->setName('config:show:store-url')
             ->setDescription(
-                'Shows store base url for given id.'
+                'Shows store base url for given id. Shows base url for all stores if id wasn\'t passed'
             );
 
         $this->addArgument(
             self::INPUT_ARGUMENT_STORE_ID,
             InputArgument::OPTIONAL,
             'Store ID'
-        );
-        $this->addOption(
-            self::INPUT_OPTION_ALL,
-            'a',
-            InputOption::VALUE_NONE,
-            'Return urls for all stores'
         );
 
         parent::configure();
@@ -75,19 +68,20 @@ class ConfigShowStoreUrlCommand extends Command
     {
         try {
             /** @var Store $store */
-            if ($input->getOption(self::INPUT_OPTION_ALL)) {
+            $storeId = $input->getArgument(self::INPUT_ARGUMENT_STORE_ID);
+            if ($storeId !== null) {
+                $store = $this->storeManager->getStore($storeId);
+
+                $output->writeln($store->getBaseUrl(UrlInterface::URL_TYPE_LINK, $store->isUrlSecure()));
+            } else {
                 $urls = [];
                 foreach ($this->storeManager->getStores(true) as $store) {
                     $urls[$store->getId()] = $store->getBaseUrl(UrlInterface::URL_TYPE_LINK, $store->isUrlSecure());
                 }
 
                 $output->write(json_encode($urls, JSON_FORCE_OBJECT));
-            } else {
-                $storeId = $input->getArgument(self::INPUT_ARGUMENT_STORE_ID);
-                $store = $this->storeManager->getStore($storeId);
-
-                $output->writeln($store->getBaseUrl(UrlInterface::URL_TYPE_LINK, $store->isUrlSecure()));
             }
+
             return Cli::RETURN_SUCCESS;
         } catch (\Exception $e) {
             $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));

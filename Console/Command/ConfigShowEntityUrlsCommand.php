@@ -160,7 +160,7 @@ class ConfigShowEntityUrlsCommand extends Command
     }
 
     /**
-     * Sets area code. Ignore if area code is already set
+     * Sets area code.
      */
     private function setArea()
     {
