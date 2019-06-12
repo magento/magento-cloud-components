@@ -9,7 +9,7 @@ use Magento\Framework\App\Area;
 use Magento\Framework\App\State;
 use Magento\Framework\Console\Cli;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\UrlInterface;
+use Magento\Framework\UrlFactory;
 use Magento\Store\Api\Data\StoreInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\UrlRewrite\Controller\Adminhtml\Url\Rewrite;
@@ -42,9 +42,9 @@ class ConfigShowEntityUrlsCommand extends Command
     private $urlFinder;
 
     /**
-     * @var UrlInterface
+     * @var UrlFactory
      */
-    private $url;
+    private $urlFactory;
 
     /**
      * @var State
@@ -58,16 +58,19 @@ class ConfigShowEntityUrlsCommand extends Command
 
     /**
      * @param StoreManagerInterface $storeManager
+     * @param UrlFinderInterface $urlFinder
+     * @param UrlFactory $urlFactory
+     * @param State $state
      */
     public function __construct(
         StoreManagerInterface $storeManager,
         UrlFinderInterface $urlFinder,
-        UrlInterface $url,
+        UrlFactory $urlFactory,
         State $state
     ) {
         $this->storeManager = $storeManager;
         $this->urlFinder = $urlFinder;
-        $this->url = $url;
+        $this->urlFactory = $urlFactory;
         $this->state = $state;
 
         parent::__construct();
@@ -146,13 +149,15 @@ class ConfigShowEntityUrlsCommand extends Command
         $urls = [];
 
         foreach ($stores as $store) {
+            $url = $this->urlFactory->create()->setScope($store->getId());
+
             $entities = $this->urlFinder->findAllByData([
                 UrlRewrite::STORE_ID => $store->getId(),
                 UrlRewrite::ENTITY_TYPE => $entityType
             ]);
-            $this->url->setScope($store->getId());
+
             foreach ($entities as $urlRewrite) {
-                $urls[] = $this->url->getUrl($urlRewrite->getRequestPath());
+                $urls[] = $url->getUrl($urlRewrite->getRequestPath());
             }
         }
 
