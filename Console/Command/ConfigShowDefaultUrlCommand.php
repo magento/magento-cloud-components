@@ -26,9 +26,8 @@ class ConfigShowDefaultUrlCommand extends Command
     /**
      * @param StoreManagerInterface $storeManager
      */
-    public function __construct(
-        StoreManagerInterface $storeManager
-    ) {
+    public function __construct(StoreManagerInterface $storeManager)
+    {
         parent::__construct();
         $this->storeManager = $storeManager;
     }
@@ -39,9 +38,7 @@ class ConfigShowDefaultUrlCommand extends Command
     protected function configure()
     {
         $this->setName('config:show:default-url')
-            ->setDescription(
-                'Shows base url for default store of default website'
-            );
+            ->setDescription('Shows base url for default store of default website');
 
         parent::configure();
     }
@@ -53,15 +50,10 @@ class ConfigShowDefaultUrlCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        try {
-            /** @var Store $store */
-            $store = $this->storeManager->getDefaultStoreView();
-            $output->write($store->getBaseUrl(UrlInterface::URL_TYPE_LINK, $store->isUrlSecure()));
+        /** @var Store $store */
+        $store = $this->storeManager->getDefaultStoreView();
+        $output->write($store->getBaseUrl(UrlInterface::URL_TYPE_LINK, $store->isUrlSecure()));
 
-            return Cli::RETURN_SUCCESS;
-        } catch (\Exception $e) {
-            $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
-            return Cli::RETURN_FAILURE;
-        }
+        return Cli::RETURN_SUCCESS;
     }
 }
