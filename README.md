@@ -1,5 +1,5 @@
 # Magento Cloud Components
-Magento Cloud Components is a Magento module, designed to extend core functionality to operate best in Cloud. This module contains Cloud-specific functionality for use with the [ECE-Tools](https://github.com/magento/ece-tools) package.
+The Magento Cloud Components module extends Magento Commerce core functionality for sites deployed on the Cloud platform.  This module contains cloud-specific functionality for use with the [ece-tools](https://github.com/magento/ece-tools) package.
 
 ## Contributing to Magento Cloud Components Code Base
 You can submit issues and pull requests to extend functionality or fix potential bugs. Improvements to Magento Cloud Components can include work such as improving the developer experience or optimizing the deployment process. If you find a bug or have a suggestion, let us know by creating a Github issue.
