@@ -4,7 +4,7 @@ Magento Cloud Components is a Magento module, designed to extend core functional
 ## Contributing to Magento Cloud Components Code Base
 You can submit issues and pull requests to extend functionality or fix potential bugs. Improvements to Magento Cloud Components can include work such as improving the developer experience or optimizing the deployment process. If you find a bug or have a suggestion, let us know by creating a Github issue.
 
-*Please note:* this repository is not an official support channel. To get project-specific help, please create support ticket through [Support Portal](https://support.magento.com). Support-related issues will be closed with the request to open a support ticket.
+*Note:*  This repository is not an official support channel. To get project-specific help, submit a [Magento Support ticket](https://support.magento.com). Any support-related issues opened in this repository will be closed with a request to open a support ticket.
 
 # Magento Cloud Suite
 The Magento Cloud Suite includes a set of packages designed to deploy and manage Magento Commerce installations.
