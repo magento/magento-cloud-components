@@ -5,6 +5,7 @@
  */
 namespace Magento\CloudComponents\Console\Command;
 
+use Magento\CloudComponents\Model\UrlFixer;
 use Magento\Framework\Console\Cli;
 use Magento\Framework\UrlInterface;
 use Magento\Store\Model\Store;
@@ -24,12 +25,19 @@ class ConfigShowDefaultUrlCommand extends Command
     private $storeManager;
 
     /**
-     * @param StoreManagerInterface $storeManager
+     * @var UrlFixer
      */
-    public function __construct(StoreManagerInterface $storeManager)
+    private $urlFixer;
+
+    /**
+     * @param StoreManagerInterface $storeManager
+     * @param UrlFixer $urlFixer
+     */
+    public function __construct(StoreManagerInterface $storeManager, UrlFixer $urlFixer)
     {
         parent::__construct();
         $this->storeManager = $storeManager;
+        $this->urlFixer = $urlFixer;
     }
 
     /**
@@ -52,7 +60,8 @@ class ConfigShowDefaultUrlCommand extends Command
     {
         /** @var Store $store */
         $store = $this->storeManager->getDefaultStoreView();
-        $output->write($store->getBaseUrl(UrlInterface::URL_TYPE_LINK, $store->isUrlSecure()));
+        $baseUrl = $store->getBaseUrl(UrlInterface::URL_TYPE_LINK, $store->isUrlSecure());
+        $output->write($this->urlFixer->run($store, $baseUrl));
 
         return Cli::RETURN_SUCCESS;
     }

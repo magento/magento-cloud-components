@@ -5,6 +5,7 @@
  */
 namespace Magento\CloudComponents\Console\Command;
 
+use Magento\CloudComponents\Model\UrlFixer;
 use Magento\Framework\App\Area;
 use Magento\Framework\App\State;
 use Magento\Framework\Console\Cli;
@@ -14,11 +15,11 @@ use Magento\Store\Api\Data\StoreInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\UrlRewrite\Controller\Adminhtml\Url\Rewrite;
 use Magento\UrlRewrite\Model\UrlFinderInterface;
+use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
 /**
  * Returns list of category or cms-page urls for given stores
@@ -52,6 +53,11 @@ class ConfigShowEntityUrlsCommand extends Command
     private $state;
 
     /**
+     * @var UrlFixer
+     */
+    private $urlFixer;
+
+    /**
      * @var array
      */
     private $possibleEntities = [Rewrite::ENTITY_TYPE_CMS_PAGE, Rewrite::ENTITY_TYPE_CATEGORY];
@@ -61,17 +67,20 @@ class ConfigShowEntityUrlsCommand extends Command
      * @param UrlFinderInterface $urlFinder
      * @param UrlFactory $urlFactory
      * @param State $state
+     * @param UrlFixer $urlFixer
      */
     public function __construct(
         StoreManagerInterface $storeManager,
         UrlFinderInterface $urlFinder,
         UrlFactory $urlFactory,
-        State $state
+        State $state,
+        UrlFixer $urlFixer
     ) {
         $this->storeManager = $storeManager;
         $this->urlFinder = $urlFinder;
         $this->urlFactory = $urlFactory;
         $this->state = $state;
+        $this->urlFixer = $urlFixer;
 
         parent::__construct();
     }
@@ -157,7 +166,7 @@ class ConfigShowEntityUrlsCommand extends Command
             ]);
 
             foreach ($entities as $urlRewrite) {
-                $urls[] = $url->getUrl($urlRewrite->getRequestPath());
+                $urls[] = $this->urlFixer->run($store, $url->getUrl($urlRewrite->getRequestPath()));
             }
         }
 

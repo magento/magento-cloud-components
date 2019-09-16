@@ -5,6 +5,7 @@
  */
 namespace Magento\CloudComponents\Console\Command;
 
+use Magento\CloudComponents\Model\UrlFixer;
 use Magento\Framework\Console\Cli;
 use Magento\Framework\UrlInterface;
 use Magento\Store\Model\Store;
@@ -30,13 +31,21 @@ class ConfigShowStoreUrlCommand extends Command
     private $storeManager;
 
     /**
+     * @var UrlFixer
+     */
+    private $urlFixer;
+
+    /**
      * @param StoreManagerInterface $storeManager
+     * @param UrlFixer $urlFixer
      */
     public function __construct(
-        StoreManagerInterface $storeManager
+        StoreManagerInterface $storeManager,
+        UrlFixer $urlFixer
     ) {
         parent::__construct();
         $this->storeManager = $storeManager;
+        $this->urlFixer = $urlFixer;
     }
 
     /**
@@ -70,12 +79,16 @@ class ConfigShowStoreUrlCommand extends Command
             $storeId = $input->getArgument(self::INPUT_ARGUMENT_STORE_ID);
             if ($storeId !== null) {
                 $store = $this->storeManager->getStore($storeId);
+                $baseUrl = $store->getBaseUrl(UrlInterface::URL_TYPE_LINK, $store->isUrlSecure());
 
-                $output->writeln($store->getBaseUrl(UrlInterface::URL_TYPE_LINK, $store->isUrlSecure()));
+                $output->writeln($this->urlFixer->run($store, $baseUrl));
             } else {
                 $urls = [];
                 foreach ($this->storeManager->getStores(true) as $store) {
-                    $urls[$store->getId()] = $store->getBaseUrl(UrlInterface::URL_TYPE_LINK, $store->isUrlSecure());
+                    $urls[$store->getId()] = $this->urlFixer->run(
+                        $store,
+                        $store->getBaseUrl(UrlInterface::URL_TYPE_LINK, $store->isUrlSecure())
+                    );
                 }
 
                 $output->write(json_encode($urls, JSON_FORCE_OBJECT));
