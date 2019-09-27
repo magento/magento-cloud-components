@@ -9,10 +9,6 @@ php:
   - '7.2'
   - '7.3'
 
-env:
-  matrix:
-    - TEST_SUITE=static-unit XDEBUG=true
-
 install:
   - if [ $TRAVIS_SECURE_ENV_VARS == "true" ]; then composer config http-basic.repo.magento.com ${REPO_USERNAME} ${REPO_PASSWORD}; fi;
   - if [ $TRAVIS_SECURE_ENV_VARS == "true" ]; then composer config github-oauth.github.com ${GITHUB_TOKEN}; fi;
