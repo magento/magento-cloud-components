@@ -1,0 +1,31 @@
+dist: trusty
+
+git:
+  depth: false
+
+language: php
+php:
+  - '7.1'
+  - '7.2'
+  - '7.3'
+
+env:
+  matrix:
+    - TEST_SUITE=static-unit XDEBUG=true
+
+install:
+  - if [ $TRAVIS_SECURE_ENV_VARS == "true" ]; then composer config http-basic.repo.magento.com ${REPO_USERNAME} ${REPO_PASSWORD}; fi;
+  - if [ $TRAVIS_SECURE_ENV_VARS == "true" ]; then composer config github-oauth.github.com ${GITHUB_TOKEN}; fi;
+  - composer update -n --no-suggest
+
+before_script:
+  - echo "COMPOSER_MAGENTO_USERNAME=${REPO_USERNAME}" >> ./.docker/composer.env
+  - echo "COMPOSER_MAGENTO_PASSWORD=${REPO_PASSWORD}" >> ./.docker/composer.env
+  - composer config repositories.magento composer https://repo.magento.com/
+  - composer require "magento/framework:*" --no-update
+  - composer require "magento/module-store:*" --no-update
+  - composer require "magento/module-url-rewrite:*" --no-update
+
+script:
+  - if [ $TEST_SUITE == "static-unit" ]; then ./Test/static/static-travis.sh; fi
+

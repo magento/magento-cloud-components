@@ -23,6 +23,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Returns list of category or cms-page urls for given stores
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class ConfigShowEntityUrlsCommand extends Command
 {

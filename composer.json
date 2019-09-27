@@ -12,6 +12,27 @@
     "magento/module-store": "*",
     "magento/module-url-rewrite": "*"
   },
+  "require-dev": {
+    "phpmd/phpmd": "@stable",
+    "phpstan/phpstan": "^0.11",
+    "phpunit/phpunit": "^6.2",
+    "squizlabs/php_codesniffer": "^3.0"
+  },
+  "scripts": {
+    "test": [
+      "@phpstan",
+      "@phpcs",
+      "@phpmd",
+      "@phpunit"
+    ],
+    "phpstan": "phpstan analyse -c Test/static/phpstan.neon",
+    "phpcs": "phpcs ./ --standard=Test/static/phpcs-ruleset.xml -p -n",
+    "phpmd": "phpmd Console xml Test/static/phpmd-ruleset.xml",
+    "phpunit": "phpunit --configuration Test/Unit",
+    "pre-install-cmd": "@install_suggested",
+    "pre-update-cmd": "@install_suggested",
+    "install_suggested": "composer config repositories.magento composer https://repo.magento.com/ && composer require \"magento/framework:*\" --no-update && composer require \"magento/module-store:*\" --no-update && composer require \"magento/module-url-rewrite:*\" --no-update"
+  },
   "autoload": {
     "files": [ "registration.php" ],
     "psr-4": {

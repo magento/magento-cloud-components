@@ -21,8 +21,7 @@ class UrlFixer
      */
     public function run(Store $store, $url): string
     {
-        if (
-            ($store->getForceDisableRewrites() || !$store->getConfig(Store::XML_PATH_USE_REWRITES))
+        if (($store->getForceDisableRewrites() || !$store->getConfig(Store::XML_PATH_USE_REWRITES))
             && strpos($url, '/magento/') !== false
         ) {
             return preg_replace('|/magento/|', '/', $url, 1);
