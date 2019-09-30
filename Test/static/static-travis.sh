@@ -18,4 +18,3 @@ log "phpmd"
 ./vendor/bin/phpmd Console xml Test/static/phpmd-ruleset.xml
 log "phpunit"
 ./vendor/bin/phpunit --configuration Test/Unit
-
