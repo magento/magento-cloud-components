@@ -7,7 +7,7 @@ set -e
 trap '>&2 echo Error: Command \`$BASH_COMMAND\` on line $LINENO failed with exit code $?' ERR
 
 function log() {
-    echo "Running {$1} tests:"
+    printf "\nRunning %s tests:\n" "$1"
 }
 
 log "phpstan"
