@@ -43,8 +43,12 @@ class UrlFixerTest extends TestCase
      * @param string $expectedUrl
      * @dataProvider runDataProvider
      */
-    public function testRun(string $url, string $expectedUrl, bool $rewritesDisabled = false, $useConfigRewrites = true)
-    {
+    public function testRunWithConfigRewrites(
+        string $url,
+        string $expectedUrl,
+        bool $rewritesDisabled = false,
+        bool $useConfigRewrites = true
+    ) {
         $this->storeMock->expects($this->once())
             ->method('getForceDisableRewrites')
             ->willReturn($rewritesDisabled);
@@ -54,6 +58,9 @@ class UrlFixerTest extends TestCase
                 ->method('getConfig')
                 ->with(Store::XML_PATH_USE_REWRITES)
                 ->willReturn($useConfigRewrites);
+        } else {
+            $this->storeMock->expects($this->never())
+                ->method('getConfig');
         }
 
         $this->assertEquals($expectedUrl, $this->urlFixer->run($this->storeMock, $url));
