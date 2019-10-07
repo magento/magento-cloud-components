@@ -3,6 +3,8 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+declare(strict_types=1);
+
 namespace Magento\CloudComponents\Console\Command;
 
 use Magento\CloudComponents\Model\UrlFixer;
@@ -23,6 +25,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Returns list of category or cms-page urls for given stores
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class ConfigShowEntityUrlsCommand extends Command
 {
