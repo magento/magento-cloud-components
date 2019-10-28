@@ -21,7 +21,7 @@ class UrlFixerTest extends TestCase
      * @var UrlFixer
      */
     private $urlFixer;
-    
+
     /**
      * @var MockObject|Store
      */
@@ -30,7 +30,7 @@ class UrlFixerTest extends TestCase
     /**
      * @inheritDoc
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->storeMock = $this->createPartialMock(Store::class, ['getForceDisableRewrites', 'getConfig']);
         $this->urlFixer = new UrlFixer();
