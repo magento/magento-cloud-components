@@ -14,7 +14,6 @@ env:
 
 install:
   - composer config http-basic.repo.magento.com ${REPO_USERNAME} ${REPO_PASSWORD};
-  - composer config github-oauth.github.com ${GITHUB_TOKEN};
   - composer config repositories.magento composer https://repo.magento.com/
   - composer require "magento/framework:*" --no-update
   - composer require "magento/module-store:*" --no-update
