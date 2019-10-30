@@ -13,8 +13,8 @@ env:
   - TEST_SUITE=static-unit XDEBUG=true
 
 install:
-  - if [ $TRAVIS_SECURE_ENV_VARS == "true" ]; then composer config http-basic.repo.magento.com ${REPO_USERNAME} ${REPO_PASSWORD}; fi;
-  - if [ $TRAVIS_SECURE_ENV_VARS == "true" ]; then composer config github-oauth.github.com ${GITHUB_TOKEN}; fi;
+  - composer config http-basic.repo.magento.com ${REPO_USERNAME} ${REPO_PASSWORD};
+  - composer config github-oauth.github.com ${GITHUB_TOKEN};
   - composer config repositories.magento composer https://repo.magento.com/
   - composer require "magento/framework:*" --no-update
   - composer require "magento/module-store:*" --no-update
