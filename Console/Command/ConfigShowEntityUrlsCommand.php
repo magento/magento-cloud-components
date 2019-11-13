@@ -7,17 +7,13 @@ declare(strict_types=1);
 
 namespace Magento\CloudComponents\Console\Command;
 
-use Magento\CloudComponents\Model\UrlFixer;
+use Magento\CloudComponents\Model\UrlFinderFactory;
 use Magento\Framework\App\Area;
 use Magento\Framework\App\State;
 use Magento\Framework\Console\Cli;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\UrlFactory;
-use Magento\Store\Api\Data\StoreInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\UrlRewrite\Controller\Adminhtml\Url\Rewrite;
-use Magento\UrlRewrite\Model\UrlFinderInterface;
-use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -34,6 +30,7 @@ class ConfigShowEntityUrlsCommand extends Command
      */
     const INPUT_OPTION_STORE_ID = 'store-id';
     const INPUT_OPTION_ENTITY_TYPE = 'entity-type';
+    const INPUT_OPTION_PRODUCT_SKU = 'product-sku';
 
     /**
      * @var StoreManagerInterface
@@ -41,49 +38,33 @@ class ConfigShowEntityUrlsCommand extends Command
     private $storeManager;
 
     /**
-     * @var UrlFinderInterface
-     */
-    private $urlFinder;
-
-    /**
-     * @var UrlFactory
-     */
-    private $urlFactory;
-
-    /**
      * @var State
      */
     private $state;
 
     /**
-     * @var UrlFixer
+     * @var UrlFinderFactory
      */
-    private $urlFixer;
+    private $urlFinderFactory;
 
     /**
      * @var array
      */
-    private $possibleEntities = [Rewrite::ENTITY_TYPE_CMS_PAGE, Rewrite::ENTITY_TYPE_CATEGORY];
+    private $possibleEntities = [Rewrite::ENTITY_TYPE_CMS_PAGE, Rewrite::ENTITY_TYPE_CATEGORY, Rewrite::ENTITY_TYPE_PRODUCT];
 
     /**
      * @param StoreManagerInterface $storeManager
-     * @param UrlFinderInterface $urlFinder
-     * @param UrlFactory $urlFactory
+     * @param UrlFinderFactory $urlFinderFactory
      * @param State $state
-     * @param UrlFixer $urlFixer
      */
     public function __construct(
         StoreManagerInterface $storeManager,
-        UrlFinderInterface $urlFinder,
-        UrlFactory $urlFactory,
-        State $state,
-        UrlFixer $urlFixer
+        UrlFinderFactory $urlFinderFactory,
+        State $state
     ) {
         $this->storeManager = $storeManager;
-        $this->urlFinder = $urlFinder;
-        $this->urlFactory = $urlFactory;
+        $this->urlFinderFactory = $urlFinderFactory;
         $this->state = $state;
-        $this->urlFixer = $urlFixer;
 
         parent::__construct();
     }
@@ -101,7 +82,7 @@ class ConfigShowEntityUrlsCommand extends Command
         $this->addOption(
             self::INPUT_OPTION_STORE_ID,
             null,
-            InputOption::VALUE_OPTIONAL,
+            InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL,
             'Store ID'
         );
         $this->addOption(
@@ -109,6 +90,12 @@ class ConfigShowEntityUrlsCommand extends Command
             null,
             InputOption::VALUE_REQUIRED,
             'Entity type: ' . implode(',', $this->possibleEntities)
+        );
+        $this->addOption(
+            self::INPUT_OPTION_PRODUCT_SKU,
+            null,
+            InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL,
+            'Product SKUs'
         );
 
         parent::configure();
@@ -133,17 +120,12 @@ class ConfigShowEntityUrlsCommand extends Command
                 return Cli::RETURN_FAILURE;
             }
 
-            $storeId = $input->getOption(self::INPUT_OPTION_STORE_ID);
+            $urlFinder = $this->urlFinderFactory->create($entityType, [
+                'stores' => $this->getStores($input),
+                'productSku' => $input->getOption(self::INPUT_OPTION_PRODUCT_SKU)
+            ]);
 
-            if ($storeId === null) {
-                $stores = $this->storeManager->getStores();
-            } else {
-                $stores = [$this->storeManager->getStore($storeId)];
-            }
-
-            $urls = $this->getPageUrls($stores, $entityType);
-
-            $output->write(json_encode(array_unique($urls)));
+            $output->write(json_encode(array_unique($urlFinder->get())));
             return Cli::RETURN_SUCCESS;
         } catch (\Exception $e) {
             $output->writeln($e->getMessage());
@@ -152,28 +134,24 @@ class ConfigShowEntityUrlsCommand extends Command
     }
 
     /**
-     * @param StoreInterface[] $stores
-     * @param string $entityType
+     * @param InputInterface $input
      * @return array
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    private function getPageUrls(array $stores, string $entityType): array
+    private function getStores(InputInterface $input): array
     {
-        $urls = [];
+        $storeIds = $input->getOption(self::INPUT_OPTION_STORE_ID);
 
-        foreach ($stores as $store) {
-            $url = $this->urlFactory->create()->setScope($store->getId());
-
-            $entities = $this->urlFinder->findAllByData([
-                UrlRewrite::STORE_ID => $store->getId(),
-                UrlRewrite::ENTITY_TYPE => $entityType
-            ]);
-
-            foreach ($entities as $urlRewrite) {
-                $urls[] = $this->urlFixer->run($store, $url->getUrl($urlRewrite->getRequestPath()));
+        if (!empty($storeIds)) {
+            $stores = [];
+            foreach ($storeIds as $storeId) {
+                $stores[] = $this->storeManager->getStore($storeId);
             }
+        } else {
+            $stores = $this->storeManager->getStores();
         }
 
-        return $urls;
+        return $stores;
     }
 
     /**
