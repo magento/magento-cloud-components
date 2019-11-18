@@ -19,6 +19,7 @@ use Magento\Store\Api\Data\StoreInterface;
 class Product implements CloudUrlFinderInterface
 {
     private const PRODUCT_LIMIT = 100;
+
     /**
      * @var UrlFixer
      */
