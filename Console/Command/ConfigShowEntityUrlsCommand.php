@@ -50,7 +50,11 @@ class ConfigShowEntityUrlsCommand extends Command
     /**
      * @var array
      */
-    private $possibleEntities = [Rewrite::ENTITY_TYPE_CMS_PAGE, Rewrite::ENTITY_TYPE_CATEGORY, Rewrite::ENTITY_TYPE_PRODUCT];
+    private $possibleEntities = [
+        Rewrite::ENTITY_TYPE_CMS_PAGE,
+        Rewrite::ENTITY_TYPE_CATEGORY,
+        Rewrite::ENTITY_TYPE_PRODUCT
+    ];
 
     /**
      * @param StoreManagerInterface $storeManager

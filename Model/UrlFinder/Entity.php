@@ -65,7 +65,6 @@ class Entity implements CloudUrlFinderInterface
         $this->stores = $stores;
     }
 
-
     /**
      * Returns list of url by store ids and entity type
      *
