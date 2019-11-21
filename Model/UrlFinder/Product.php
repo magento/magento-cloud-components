@@ -18,7 +18,10 @@ use Magento\Store\Api\Data\StoreInterface;
  */
 class Product implements CloudUrlFinderInterface
 {
-    private const PRODUCT_LIMIT = 100;
+    /**
+     * Product limit per store
+     */
+    public const PRODUCT_LIMIT = 100;
 
     /**
      * @var UrlFixer
@@ -41,21 +44,29 @@ class Product implements CloudUrlFinderInterface
     private $productCollectionFactory;
 
     /**
+     * @var int
+     */
+    private $productLimit;
+
+    /**
      * @param UrlFixer $urlFixer
      * @param CollectionFactory $productCollectionFactory
      * @param StoreInterface[] $stores
      * @param array $productSku
+     * @param int $productLimit
      */
     public function __construct(
         UrlFixer $urlFixer,
         CollectionFactory $productCollectionFactory,
         array $stores,
-        array $productSku = []
+        array $productSku = [],
+        int $productLimit = self::PRODUCT_LIMIT
     ) {
         $this->urlFixer = $urlFixer;
         $this->productCollectionFactory = $productCollectionFactory;
         $this->stores = $stores;
         $this->productSku = $productSku;
+        $this->productLimit = $productLimit;
     }
 
     /**
@@ -93,7 +104,7 @@ class Product implements CloudUrlFinderInterface
         if (count($this->productSku)) {
             $collection->addAttributeToFilter('sku', $this->productSku);
         } else {
-            $collection->setPageSize(self::PRODUCT_LIMIT);
+            $collection->setPageSize($this->productLimit);
         }
 
         return $collection;

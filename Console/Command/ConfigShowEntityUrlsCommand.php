@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\CloudComponents\Console\Command;
 
+use Magento\CloudComponents\Model\UrlFinder\Product;
 use Magento\CloudComponents\Model\UrlFinderFactory;
 use Magento\Framework\App\Area;
 use Magento\Framework\App\State;
@@ -33,6 +34,7 @@ class ConfigShowEntityUrlsCommand extends Command
     const INPUT_OPTION_STORE_ID = 'store-id';
     const INPUT_OPTION_ENTITY_TYPE = 'entity-type';
     const INPUT_OPTION_PRODUCT_SKU = 'product-sku';
+    const INPUT_OPTION_PRODUCT_LIMIT = 'product-limit';
 
     /**
      * @var StoreManagerInterface
@@ -103,6 +105,13 @@ class ConfigShowEntityUrlsCommand extends Command
             InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL,
             'Product SKUs'
         );
+        $this->addOption(
+            self::INPUT_OPTION_PRODUCT_LIMIT,
+            null,
+            InputOption::VALUE_OPTIONAL,
+            'Product limit per store uses in case when product SKUs isn\'t provided',
+            Product::PRODUCT_LIMIT
+        );
 
         parent::configure();
     }
@@ -128,7 +137,8 @@ class ConfigShowEntityUrlsCommand extends Command
 
             $urlFinder = $this->urlFinderFactory->create($entityType, [
                 'stores' => $this->getStores($input),
-                'productSku' => $input->getOption(self::INPUT_OPTION_PRODUCT_SKU)
+                'productSku' => $input->getOption(self::INPUT_OPTION_PRODUCT_SKU),
+                'productLimit' => $input->getOption(self::INPUT_OPTION_PRODUCT_LIMIT),
             ]);
 
             $output->write(json_encode(array_unique($urlFinder->get())));

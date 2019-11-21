@@ -55,7 +55,8 @@ class UrlFinderFactory
         if ($entityType === Rewrite::ENTITY_TYPE_PRODUCT) {
             return $this->objectManager->create(self::$classMap[$entityType], [
                 'stores' => $data['stores'],
-                'productSku' => $data['productSku']
+                'productSku' => $data['productSku'],
+                'productLimit' => $data['productLimit']
             ]);
         }
 
