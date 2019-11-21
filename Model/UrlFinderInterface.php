@@ -7,6 +7,9 @@ declare(strict_types=1);
 
 namespace Magento\CloudComponents\Model;
 
+/**
+ * Uses for finding urls by given parameters.
+ */
 interface UrlFinderInterface
 {
     /**
