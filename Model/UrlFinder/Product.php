@@ -44,7 +44,7 @@ class Product implements CloudUrlFinderInterface
     private $productCollectionFactory;
 
     /**
-     * @var int
+     * @var integer
      */
     private $productLimit;
 
