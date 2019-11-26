@@ -141,7 +141,7 @@ class ConfigShowEntityUrlsCommand extends Command
                 'productLimit' => $input->getOption(self::INPUT_OPTION_PRODUCT_LIMIT),
             ]);
 
-            $output->write(json_encode(array_unique($urlFinder->get())));
+            $output->writeln(json_encode(array_unique($urlFinder->get())));
             return Cli::RETURN_SUCCESS;
         } catch (\Exception $e) {
             $output->writeln($e->getMessage());

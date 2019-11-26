@@ -93,7 +93,7 @@ class ConfigShowStoreUrlCommand extends Command
                     );
                 }
 
-                $output->write(json_encode($urls, JSON_FORCE_OBJECT));
+                $output->writeln(json_encode($urls, JSON_FORCE_OBJECT));
             }
 
             return Cli::RETURN_SUCCESS;
