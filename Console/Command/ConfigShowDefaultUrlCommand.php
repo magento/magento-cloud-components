@@ -63,7 +63,7 @@ class ConfigShowDefaultUrlCommand extends Command
         /** @var Store $store */
         $store = $this->storeManager->getDefaultStoreView();
         $baseUrl = $store->getBaseUrl(UrlInterface::URL_TYPE_LINK, $store->isUrlSecure());
-        $output->write($this->urlFixer->run($store, $baseUrl));
+        $output->writeln($this->urlFixer->run($store, $baseUrl));
 
         return Cli::RETURN_SUCCESS;
     }

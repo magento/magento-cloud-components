@@ -5,3 +5,7 @@ parameters:
         - Model
     excludes_analyse:
         - %currentWorkingDirectory%/Test/*
+    ignoreErrors:
+        -
+            message: '#has invalid typehint type#'
+            path: Model/UrlFinder/Product.php
