@@ -1,0 +1,25 @@
+dist: trusty
+
+git:
+  depth: false
+
+language: php
+php:
+  - '7.1'
+  - '7.2'
+  - '7.3'
+
+env:
+  - TEST_SUITE=static-unit XDEBUG=true
+
+install:
+  - composer config http-basic.repo.magento.com ${REPO_USERNAME} ${REPO_PASSWORD};
+  - composer config repositories.magento composer https://repo.magento.com/
+  - composer require "magento/framework:*" --no-update
+  - composer require "magento/module-store:*" --no-update
+  - composer require "magento/module-url-rewrite:*" --no-update
+  - composer update -n --no-suggest
+
+script:
+  - if [ "$TEST_SUITE" == "static-unit" ]; then ./Test/static/static-travis.sh; fi
+

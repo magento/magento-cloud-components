@@ -1,2 +1,4 @@
-.idea
-composer.lock
+/.idea
+/composer.lock
+/vendor
+/auth.json
