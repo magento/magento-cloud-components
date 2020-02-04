@@ -15,4 +15,14 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers"  xsi:type="array">
+                <item name="newRelic" xsi:type="object">NewRelic\Monolog\Enricher\Handler</item>
+            </argument>
+            <argument name="processors"  xsi:type="array">
+                <item name="newRelic" xsi:type="object">NewRelic\Monolog\Enricher\Processor</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

@@ -5,7 +5,8 @@
   "version": "1.0.2",
   "require": {
     "php": "^7.1",
-    "ext-json": "*"
+    "ext-json": "*",
+    "newrelic/monolog-enricher": "^1.0"
   },
   "suggest": {
     "magento/framework": "*",
