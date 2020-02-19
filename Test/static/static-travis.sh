@@ -10,8 +10,6 @@ function log() {
     printf "\nRunning %s tests:\n" "$1"
 }
 
-log "phpstan"
-./vendor/bin/phpstan analyse -c Test/static/phpstan.neon
 log "phpcs"
 ./vendor/bin/phpcs ./ --standard=Test/static/phpcs-ruleset.xml -p -n
 log "phpmd"

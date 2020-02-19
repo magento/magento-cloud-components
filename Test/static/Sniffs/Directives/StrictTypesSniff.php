@@ -79,7 +79,7 @@ class StrictTypesSniff implements Sniff
      * @param File $phpcsFile
      * @param int $position
      */
-    private function fix(File $phpcsFile, int $position) : void
+    private function fix(File $phpcsFile, int $position)
     {
         // Get the fixer.
         $fixer = $phpcsFile->fixer;
