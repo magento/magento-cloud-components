@@ -38,11 +38,5 @@
     "psr-4": {
       "Magento\\CloudComponents\\": ""
     }
-  },
-  "repositories": {
-    "magento": {
-      "type": "composer",
-      "url": "https://repo.magento.com/"
-    }
   }
 }
