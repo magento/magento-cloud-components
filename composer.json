@@ -5,10 +5,7 @@
   "version": "1.0.3",
   "require": {
     "php": "^7.0",
-    "ext-json": "*",
-    "magento/framework": "*",
-    "magento/module-store": "*",
-    "magento/module-url-rewrite": "*"
+    "ext-json": "*"
   },
   "suggest": {
     "magento/framework": "*",
