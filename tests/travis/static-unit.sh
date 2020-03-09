@@ -11,10 +11,10 @@ function log() {
 }
 
 log "phpstan"
-./vendor/bin/phpstan analyse -c Test/static/phpstan.neon
+./vendor/bin/phpstan analyse -c tests/static/phpstan.neon
 log "phpcs"
-./vendor/bin/phpcs ./ --standard=Test/static/phpcs-ruleset.xml -p -n
+./vendor/bin/phpcs ./ --standard=tests/static/phpcs-ruleset.xml -p -n
 log "phpmd"
-./vendor/bin/phpmd Console xml Test/static/phpmd-ruleset.xml
+./vendor/bin/phpmd Console xml tests/static/phpmd-ruleset.xml
 log "phpunit"
 ./vendor/bin/phpunit --configuration Test/Unit
