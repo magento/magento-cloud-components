@@ -1,5 +1,5 @@
 paths:
-  tests: src/Test/Functional
+  tests: /Test/Functional
   output: tests/functional/_output
   data: tests/functional/_data
   support: vendor/magento/magento-cloud-docker/tests/functional/_support

@@ -1,4 +1,5 @@
 /.idea
+/_workdir
 /composer.lock
 /vendor
 /auth.json
