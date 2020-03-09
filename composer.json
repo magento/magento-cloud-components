@@ -13,6 +13,8 @@
     "magento/module-url-rewrite": "*"
   },
   "require-dev": {
+    "codeception/codeception": "^2.5.3",
+    "consolidation/robo": "^1.2",
     "phpmd/phpmd": "@stable",
     "phpstan/phpstan": "^0.11",
     "phpunit/phpunit": "^6.2",
@@ -36,7 +38,8 @@
   "autoload": {
     "files": [ "registration.php" ],
     "psr-4": {
-      "Magento\\CloudComponents\\": ""
+      "Magento\\CloudComponents\\": "",
+      "Magento\\CloudComponents\\Test\\Functional\\": "tests/functional/"
     }
   }
 }
