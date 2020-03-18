@@ -6,7 +6,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
-    <group id="default">
+    <group id="cloud_analytics">
         <job name="cloud_components_log_process_list" instance="Magento\CloudComponents\Model\Cron\LogProcessList" method="execute">
             <schedule>* * * * *</schedule>
         </job>
