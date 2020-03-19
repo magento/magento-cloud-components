@@ -25,4 +25,11 @@
             <argument name="fileName" xsi:type="string">/var/log/process_list.log</argument>
         </arguments>
     </virtualType>
+    <virtualType name="Magento\CloudComponents\Model\VirtualLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Magento\CloudComponents\Model\VirtualLoggerHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
 </config>
