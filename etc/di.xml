@@ -15,4 +15,14 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="name" xsi:type="string">report</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="report" xsi:type="object">Magento\Support\Model\Logger\Handler\Report</item>
+                <item name="system" xsi:type="object">Magento\Framework\Logger\Handler\System</item>
+                <item name="debug" xsi:type="object">Magento\Framework\Logger\Handler\Debug</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

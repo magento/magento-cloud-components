@@ -7,7 +7,9 @@ declare(strict_types=1);
 
 namespace Magento\CloudComponents\Model\Cron;
 
+use Magento\CloudComponents\Model\Logger\Handler\ProcessList;
 use Magento\Framework\App\ResourceConnection;
+use Psr\Log\LoggerInterface;
 
 class LogProcessList
 {
@@ -17,17 +19,26 @@ class LogProcessList
     private $connection;
 
     /**
-     * @param ResourceConnection $resource
+     * @var LoggerInterface
      */
-    public function __construct(ResourceConnection $resource)
+    private $logger;
+
+    /**
+     * @param ResourceConnection $resource
+     * @param LoggerInterface $logger
+     */
+    public function __construct(ResourceConnection $resource, LoggerInterface $logger)
     {
         $this->connection = $resource->getConnection();
+        $this->logger = $logger;
     }
 
     public function execute()
     {
         $result = $this->connection->query('SHOW PROCESSLIST;')->fetchAll();
 
-        die(var_dump($result));
+        $this->logger->log(ProcessList::LEVEL, 'Log processlist', [
+            'data' => $result
+        ]);
     }
 }
