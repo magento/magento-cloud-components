@@ -15,14 +15,14 @@
             </argument>
         </arguments>
     </type>
-    <type name="Magento\Framework\Logger\Monolog">
+    <type name="Magento\CloudComponents\Model\Cron\LogProcessList">
         <arguments>
-            <argument name="name" xsi:type="string">report</argument>
-            <argument name="handlers"  xsi:type="array">
-                <item name="report" xsi:type="object">Magento\Support\Model\Logger\Handler\Report</item>
-                <item name="system" xsi:type="object">Magento\Framework\Logger\Handler\System</item>
-                <item name="debug" xsi:type="object">Magento\Framework\Logger\Handler\Debug</item>
-            </argument>
+            <argument name="logger" xsi:type="object">Magento\CloudComponents\Model\VirtualLogger</argument>
         </arguments>
     </type>
+    <virtualType name="Magento\CloudComponents\Model\VirtualLoggerHandler" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/process_list.log</argument>
+        </arguments>
+    </virtualType>
 </config>
