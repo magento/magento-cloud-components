@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\CloudComponents\Model\Cron;
 
+use Magento\CloudComponents\Model\ConstantList;
 use Magento\Framework\App\DeploymentConfig;
 use Magento\Framework\App\ResourceConnection;
 use Psr\Log\LoggerInterface;
@@ -14,10 +15,8 @@ use Psr\Log\LoggerInterface;
 /**
  * Logs DB health status.
  */
-class DbHealthList
+class DbHealth
 {
-    const CONFIG_KEY = 'dev/debug/cloud_logging';
-
     /**
      * @var ResourceConnection
      */
@@ -53,7 +52,7 @@ class DbHealthList
      */
     public function execute()
     {
-        if (!$this->deploymentConfig->get(self::CONFIG_KEY)) {
+        if (!$this->deploymentConfig->get(ConstantList::CONFIG_PATH_LOG_DB_HEALTH)) {
             return;
         }
 

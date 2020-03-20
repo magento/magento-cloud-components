@@ -12,23 +12,24 @@
                 <item name="configShowStoreUrlCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigShowStoreUrlCommand</item>
                 <item name="configShowEntityUrlsCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigShowEntityUrlsCommand</item>
                 <item name="ConfigShowDefaultUrlCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigShowDefaultUrlCommand</item>
+                <item name="ConfigSetLogDbHealthCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigSetLogDbHealthCommand</item>
             </argument>
         </arguments>
     </type>
-    <type name="Magento\CloudComponents\Model\Cron\DbHealthList">
+    <type name="Magento\CloudComponents\Model\Cron\DbHealth">
         <arguments>
-            <argument name="logger" xsi:type="object">Magento\CloudComponents\Model\VirtualLogger</argument>
+            <argument name="logger" xsi:type="object">Magento\CloudComponents\Model\DbHealthLogger</argument>
         </arguments>
     </type>
-    <virtualType name="Magento\CloudComponents\Model\VirtualLoggerHandler" type="Magento\Framework\Logger\Handler\Base">
+    <virtualType name="Magento\CloudComponents\Model\DbHealthLoggerHandler" type="Magento\Framework\Logger\Handler\Base">
         <arguments>
             <argument name="fileName" xsi:type="string">/var/log/db_health.log</argument>
         </arguments>
     </virtualType>
-    <virtualType name="Magento\CloudComponents\Model\VirtualLogger" type="Magento\Framework\Logger\Monolog">
+    <virtualType name="Magento\CloudComponents\Model\DbHealthLogger" type="Magento\Framework\Logger\Monolog">
         <arguments>
             <argument name="handlers" xsi:type="array">
-                <item name="system" xsi:type="object">Magento\CloudComponents\Model\VirtualLoggerHandler</item>
+                <item name="system" xsi:type="object">Magento\CloudComponents\Model\DbHealthLoggerHandler</item>
             </argument>
         </arguments>
     </virtualType>
