@@ -7,6 +7,9 @@ declare(strict_types=1);
 
 namespace Magento\CloudComponents\Model;
 
+/**
+ * List with module-specific constants
+ */
 class ConstantList
 {
     const CONFIG_PATH_LOG_DB_HEALTH = 'db_health';
