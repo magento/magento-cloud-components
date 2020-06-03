@@ -31,7 +31,7 @@ class Logger
 
     /**
      * Log full re-indexation to a file
-     * 
+     *
      * @param ActionInterface $subject
      */
     public function afterExecuteFull(ActionInterface $subject)
