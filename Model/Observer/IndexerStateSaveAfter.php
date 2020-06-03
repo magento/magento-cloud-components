@@ -14,6 +14,9 @@ use Magento\Framework\Indexer\StateInterface;
 use Magento\Framework\Validator\Exception;
 use Psr\Log\LoggerInterface;
 
+/**
+ * Log all indexers invalidations to a file
+ */
 class IndexerStateSaveAfter implements ObserverInterface
 {
     /**
@@ -30,11 +33,9 @@ class IndexerStateSaveAfter implements ObserverInterface
     }
 
     /**
-     * Apply model save operation
+     * Log all indexers invalidations to a file
      *
      * @param Observer $observer
-     * @throws Exception
-     * @return void
      */
     public function execute(Observer $observer)
     {

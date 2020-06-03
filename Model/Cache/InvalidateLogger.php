@@ -9,11 +9,13 @@ declare(strict_types=1);
 namespace Magento\CloudComponents\Model\Cache;
 
 /**
- * Invalidate logger cache.
+ * Log cache invalidation to a file
  */
 class InvalidateLogger extends \Magento\Framework\Cache\InvalidateLogger
 {
     /**
+     * Log cache invalidation to a file
+     *
      * @param mixed $invalidateInfo
      */
     public function execute($invalidateInfo)

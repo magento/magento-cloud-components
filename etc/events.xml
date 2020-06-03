@@ -10,6 +10,6 @@
         <observer name="log_indexer_invalidation_action" instance="Magento\CloudComponents\Model\Observer\IndexerStateSaveAfter" />
     </event>
     <event name="adminhtml_cache_flush_all">
-        <observer name="log_indexer_invalidation_action" instance="Magento\CloudComponents\Model\Observer\CacheFlushAll" />
+        <observer name="log_cache_flush_action" instance="Magento\CloudComponents\Model\Observer\CacheFlushAll" />
     </event>
 </config>

@@ -12,6 +12,9 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Cache\InvalidateLogger;
 
+/**
+ * Log cache flush action to a file
+ */
 class CacheFlushAll implements ObserverInterface
 {
     /**
@@ -28,11 +31,9 @@ class CacheFlushAll implements ObserverInterface
     }
 
     /**
-     * Apply model save operation
+     * Log cache flush action to a file
      *
      * @param Observer $observer
-     * @throws \Magento\Framework\Validator\Exception
-     * @return void
      */
     public function execute(Observer $observer)
     {

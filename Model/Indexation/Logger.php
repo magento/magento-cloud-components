@@ -11,6 +11,9 @@ namespace Magento\CloudComponents\Model\Indexation;
 use Magento\Framework\Indexer\ActionInterface;
 use Psr\Log\LoggerInterface;
 
+/**
+ * Log full re-indexation to a file
+ */
 class Logger
 {
     /**
@@ -27,6 +30,8 @@ class Logger
     }
 
     /**
+     * Log full re-indexation to a file
+     * 
      * @param ActionInterface $subject
      */
     public function afterExecuteFull(ActionInterface $subject)
