@@ -16,6 +16,18 @@
         </arguments>
     </type>
 
+    <!-- Enable NewRelic Logs in Context -->
+    <type name="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers"  xsi:type="array">
+                <item name="newRelic" xsi:type="object">NewRelic\Monolog\Enricher\Handler</item>
+            </argument>
+            <argument name="processors"  xsi:type="array">
+                <item name="newRelic" xsi:type="object">NewRelic\Monolog\Enricher\Processor</item>
+            </argument>
+        </arguments>
+    </type>
+
     <!-- Log cache invalidation event to separate file -->
     <type name="Magento\CloudComponents\Model\Logger\Handler\Debug">
         <arguments>
