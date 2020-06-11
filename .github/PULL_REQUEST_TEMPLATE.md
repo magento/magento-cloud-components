@@ -16,7 +16,7 @@
 
 ### Fixed Issues (if relevant)
 <!---
-    If relevant, please provide a list of fixed issues in the format magento/ece-tools#<issue_number>.
+    If relevant, please provide a list of fixed issues in the format magento/magento-cloud-components#<issue_number>.
     There could be 1 or more issues linked here and it will help us find some more information about the reasoning behind this change.
 -->
 1. magento/magento-cloud-components#<issue_number>: Issue title
@@ -30,6 +30,17 @@
 1. ...
 2. ...
 
+### Release notes
+
+For user-facing changes, add a meaningful release note. For examples, see [Magento Cloud Components release notes](https://devdocs.magento.com/cloud/release-notes/mcc-release-notes.html).
+
+### Associated documentation updates
+<!--
+ If your proposed update requires user documentation, submit a PR to the Magento DevDocs repository. For extensive updates requiring assistance, submit an issue to DevDocs. See https://github.com/magento/devdocs/blob/master/.github/CONTRIBUTING.md.
+ -->
+Add link to Magento DevDocs PR or Issue, if needed.
+
 ### Contribution checklist
  - [ ] Pull request has a meaningful description of its purpose
+ - [ ] Pull request introduces user-facing changes and includes meaningful updates for any required release notes and documentation changes
  - [ ] All commits are accompanied by meaningful commit messages
