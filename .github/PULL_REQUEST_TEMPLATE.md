@@ -32,7 +32,7 @@
 
 ### Release notes
 
-For user-facing changes, add a meaningful release note. For examples, see [Magento Cloud Docker release notes](https://devdocs.magento.com/cloud/release-notes/mcc-release-notes.html).
+For user-facing changes, add a meaningful release note. For examples, see [Magento Cloud Component release notes](https://devdocs.magento.com/cloud/release-notes/mcc-release-notes.html).
 
 ### Associated documentation updates
 <!--
@@ -42,5 +42,5 @@ Add link to Magento DevDocs PR or Issue, if needed.
 
 ### Contribution checklist
  - [ ] Pull request has a meaningful description of its purpose
- - [ ] Pull request introduces user-facing changes and includes meaningful release notes and documentation
+ - [ ] Pull request introduces user-facing changes and includes meaningful updates for any required release notes or documentation changes
  - [ ] All commits are accompanied by meaningful commit messages
