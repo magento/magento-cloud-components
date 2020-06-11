@@ -32,7 +32,7 @@
 
 ### Release notes
 
-For user-facing changes, add a meaningful release note. For examples, see [Magento Cloud Component release notes](https://devdocs.magento.com/cloud/release-notes/mcc-release-notes.html).
+For user-facing changes, add a meaningful release note. For examples, see [Magento Cloud Components release notes](https://devdocs.magento.com/cloud/release-notes/mcc-release-notes.html).
 
 ### Associated documentation updates
 <!--
