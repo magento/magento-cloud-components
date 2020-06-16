@@ -41,7 +41,7 @@ class UrlFinderFactoryTest extends TestCase
         $this->urlFinderFactory = new UrlFinderFactory($this->objectManagerMock);
     }
 
-    public function testCreateCategoryOrCmsPageEntity(): void
+    public function testCreateCategoryOrCmsPageEntity()
     {
         $this->objectManagerMock->expects($this->once())
             ->method('create')
@@ -56,7 +56,7 @@ class UrlFinderFactoryTest extends TestCase
         ]);
     }
 
-    public function testCreateProductEntity(): void
+    public function testCreateProductEntity()
     {
         $this->objectManagerMock->expects($this->once())
             ->method('create')
@@ -74,7 +74,7 @@ class UrlFinderFactoryTest extends TestCase
         ]);
     }
 
-    public function testCreateWrongType(): void
+    public function testCreateWrongType()
     {
         $this->expectException(UnexpectedValueException::class);
         $this->expectExceptionMessage('Wrong entity type.');
