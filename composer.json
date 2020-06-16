@@ -17,15 +17,18 @@
     "codeception/codeception": "^2.5.3",
     "consolidation/robo": "^1.2",
     "phpmd/phpmd": "@stable",
+    "phpstan/phpstan": "^0.11",
     "phpunit/phpunit": "^6.2",
     "squizlabs/php_codesniffer": "^3.0"
   },
   "scripts": {
     "test": [
+      "@phpstan",
       "@phpcs",
       "@phpmd",
       "@phpunit"
     ],
+    "phpstan": "phpstan analyse -c test/static/phpstan.neon",
     "phpcs": "phpcs ./ --standard=test/static/phpcs-ruleset.xml -p -n",
     "phpmd": "phpmd Console xml test/static/phpmd-ruleset.xml",
     "phpunit": "phpunit --configuration Test/Unit",
