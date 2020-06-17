@@ -15,4 +15,68 @@
             </argument>
         </arguments>
     </type>
+
+    <!-- Enable NewRelic Logs in Context -->
+    <type name="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers"  xsi:type="array">
+                <item name="newRelic" xsi:type="object">NewRelic\Monolog\Enricher\Handler</item>
+            </argument>
+            <argument name="processors"  xsi:type="array">
+                <item name="newRelic" xsi:type="object">NewRelic\Monolog\Enricher\Processor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Log cache invalidation event to separate file -->
+    <type name="Magento\CloudComponents\Model\Logger\Handler\Debug">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/cache.log</argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\CloudComponents\Model\Logger\CacheInvalidate" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="name" xsi:type="string">main</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="debug" xsi:type="object">Magento\CloudComponents\Model\Logger\Handler\Debug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\CloudComponents\Model\Cache\InvalidateLogger">
+        <arguments>
+            <argument name="logger" xsi:type="object">Magento\CloudComponents\Model\Logger\CacheInvalidate</argument>
+        </arguments>
+    </type>
+    <preference for="Magento\Framework\Cache\InvalidateLogger" type="Magento\CloudComponents\Model\Cache\InvalidateLogger"/>
+
+    <!-- Log full reindex action -->
+    <virtualType name="Magento\CloudComponents\Model\Logger\Handler\Debug\Indexation" type="Magento\CloudComponents\Model\Logger\Handler\Debug">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/indexation.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\CloudComponents\Model\Logger\Monolog\Indexation" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="name" xsi:type="string">main</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="debug" xsi:type="object">Magento\CloudComponents\Model\Logger\Handler\Debug\Indexation</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\CloudComponents\Model\Indexation\Logger">
+        <arguments>
+            <argument name="logger" xsi:type="object">Magento\CloudComponents\Model\Logger\Monolog\Indexation</argument>
+        </arguments>
+    </type>
+
+
+    <!-- Log Index invalidation action -->
+    <type name="Magento\CloudComponents\Model\Observer\IndexerStateSaveAfter">
+        <arguments>
+            <argument name="logger" xsi:type="object">Magento\CloudComponents\Model\Logger\Monolog\Indexation</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Indexer\ActionInterface">
+        <plugin name="cache_cleaner_after_reindex" type="Magento\CloudComponents\Model\Indexation\Logger" />
+    </type>
 </config>

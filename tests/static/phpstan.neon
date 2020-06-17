@@ -1,0 +1,11 @@
+parameters:
+    level: 1
+    paths:
+        - Console
+        - Model
+    excludes_analyse:
+        - %currentWorkingDirectory%/Test/*
+    ignoreErrors:
+        -
+            message: '#has invalid typehint type#'
+            path: Model/UrlFinder/Product.php

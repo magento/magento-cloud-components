@@ -21,7 +21,7 @@ class Product implements CloudUrlFinderInterface
     /**
      * Product limit per store
      */
-    const PRODUCT_LIMIT = 100;
+    public const PRODUCT_LIMIT = 100;
 
     /**
      * @var UrlFixer
