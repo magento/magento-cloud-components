@@ -52,17 +52,18 @@ class Evictor
 
         foreach ($cacheOptions as $name => $cacheConfig) {
             $this->logger->info(sprintf(
-                'Evicting keys for %s database',
+                'Evicting keys for "%s" database',
                 $name
             ));
 
-            $evictedKeys += $this->run(
+            $dbKeys = $this->run(
                 $cacheConfig['backend_options']['server'],
                 $cacheConfig['backend_options']['port'],
                 $cacheConfig['backend_options']['database']
             );
+            $evictedKeys += $dbKeys;
 
-            $this->logger->info('Keys evicted');
+            $this->logger->info(sprintf('Keys evicted: %s', $dbKeys));
         }
 
         return $evictedKeys;
@@ -87,8 +88,6 @@ class Evictor
             } else {
                 $keysCount = count($keys);
                 $evictedKeys += $keysCount;
-
-                $this->logger->debug(sprintf('Evicted keys count: %s', $keysCount));
             }
         } while ($iterator > 0);
 

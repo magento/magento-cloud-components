@@ -45,7 +45,7 @@ class CacheEvict extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('Begin key eviction');
+        $output->writeln('Begin eviction of cache keys');
 
         $count = $this->evictor->evict();
 
