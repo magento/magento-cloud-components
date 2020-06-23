@@ -18,6 +18,7 @@ use Credis_Client as Client;
 class Evictor
 {
     const EVICTION_LIMIT = 10000;
+    const CONFIG_PATH = 'cache_evict/enabled';
 
     /**
      * @var DeploymentConfig

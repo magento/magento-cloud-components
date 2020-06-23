@@ -8,6 +8,8 @@ declare(strict_types=1);
 namespace Magento\CloudComponents\Cron;
 
 use Magento\CloudComponents\Model\Cache\Evictor;
+use Magento\Framework\App\DeploymentConfig;
+use Psr\Log\LoggerInterface;
 
 class Eviction
 {
@@ -17,11 +19,25 @@ class Eviction
     private $evictor;
 
     /**
-     * @param Evictor $evictor
+     * @var DeploymentConfig
      */
-    public function __construct(Evictor $evictor)
+    private $deploymentConfig;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * @param Evictor $evictor
+     * @param DeploymentConfig $deploymentConfig
+     * @param LoggerInterface $logger
+     */
+    public function __construct(Evictor $evictor, DeploymentConfig $deploymentConfig, LoggerInterface $logger)
     {
         $this->evictor = $evictor;
+        $this->deploymentConfig = $deploymentConfig;
+        $this->logger = $logger;
     }
 
     /**
@@ -29,6 +45,12 @@ class Eviction
      */
     public function execute()
     {
+        if (!$this->deploymentConfig->get(Evictor::CONFIG_PATH)) {
+            $this->logger->debug('Keys eviction is disabled');
+
+            return;
+        }
+
         $this->evictor->evict();
     }
 }
