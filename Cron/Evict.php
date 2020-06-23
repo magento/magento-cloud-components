@@ -46,7 +46,7 @@ class Eviction
     public function execute()
     {
         if (!$this->deploymentConfig->get(Evictor::CONFIG_PATH)) {
-            $this->logger->debug('Keys eviction is disabled');
+            $this->logger->info('Keys eviction is disabled');
 
             return;
         }
