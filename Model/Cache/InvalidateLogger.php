@@ -22,6 +22,11 @@ class InvalidateLogger extends \Magento\Framework\Cache\InvalidateLogger
     {
         if (is_array($invalidateInfo)) {
             $invalidateInfo['trace'] = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        } elseif (is_string($invalidateInfo)) {
+            $invalidateInfo = [
+                'main' => $invalidateInfo,
+                'trace' => debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)
+            ];
         }
 
         parent::execute($invalidateInfo);
