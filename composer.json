@@ -2,7 +2,7 @@
   "name": "magento/magento-cloud-components",
   "description": "Cloud Components Module for Magento 2.x",
   "type": "magento2-module",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "require": {
     "php": "^7.0",
     "ext-json": "*",
@@ -28,9 +28,9 @@
       "@phpmd",
       "@phpunit"
     ],
-    "phpstan": "phpstan analyse -c Test/static/phpstan.neon",
-    "phpcs": "phpcs ./ --standard=Test/static/phpcs-ruleset.xml -p -n",
-    "phpmd": "phpmd Console xml Test/static/phpmd-ruleset.xml",
+    "phpstan": "phpstan analyse -c test/static/phpstan.neon",
+    "phpcs": "phpcs ./ --standard=test/static/phpcs-ruleset.xml -p -n",
+    "phpmd": "phpmd Console xml test/static/phpmd-ruleset.xml",
     "phpunit": "phpunit --configuration Test/Unit",
     "pre-install-cmd": "@install_suggested",
     "pre-update-cmd": "@install_suggested",
