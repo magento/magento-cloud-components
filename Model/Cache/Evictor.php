@@ -47,10 +47,11 @@ class Evictor
      */
     public function evict(): int
     {
-        $cacheOptions = $this->deploymentConfig->getConfigData(FrontendPool::KEY_CACHE)[FrontendPool::KEY_FRONTEND_CACHE] ?? [];
+        $options = $this->deploymentConfig->getConfigData(FrontendPool::KEY_CACHE)[FrontendPool::KEY_FRONTEND_CACHE]
+            ?? [];
         $evictedKeys = 0;
 
-        foreach ($cacheOptions as $name => $cacheConfig) {
+        foreach ($options as $name => $cacheConfig) {
             $this->logger->info(sprintf(
                 'Evicting keys for "%s" database',
                 $name

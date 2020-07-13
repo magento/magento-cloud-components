@@ -11,7 +11,10 @@ use Magento\CloudComponents\Model\Cache\Evictor;
 use Magento\Framework\App\DeploymentConfig;
 use Psr\Log\LoggerInterface;
 
-class Eviction
+/**
+ * The cron cprocess to evict keys.
+ */
+class Evict
 {
     /**
      * @var Evictor
