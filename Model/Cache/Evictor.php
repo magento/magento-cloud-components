@@ -57,6 +57,19 @@ class Evictor
                 $name
             ));
 
+            if (!isset(
+                $cacheConfig['backend_options']['server'],
+                $cacheConfig['backend_options']['port'],
+                $cacheConfig['backend_options']['database']
+            )) {
+                $this->logger->debug(sprintf(
+                    'Cache for database "%s" config is not valid',
+                    $name
+                ));
+
+                continue;
+            }
+
             $dbKeys = $this->run(
                 $cacheConfig['backend_options']['server'],
                 $cacheConfig['backend_options']['port'],
