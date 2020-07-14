@@ -63,7 +63,7 @@ class Evictor
                 $cacheConfig['backend_options']['database']
             )) {
                 $this->logger->debug(sprintf(
-                    'Cache for database "%s" config is not valid',
+                    'Cache config for database "%s" config is not valid',
                     $name
                 ));
 
