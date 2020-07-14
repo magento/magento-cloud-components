@@ -53,7 +53,7 @@ class Evictor
 
         foreach ($options as $name => $cacheConfig) {
             $this->logger->info(sprintf(
-                'Evicting keys for "%s" database',
+                'Scanning keys for "%s" database',
                 $name
             ));
 
@@ -77,7 +77,7 @@ class Evictor
             );
             $evictedKeys += $dbKeys;
 
-            $this->logger->info(sprintf('Keys evicted: %s', $dbKeys));
+            $this->logger->info(sprintf('Keys scanned: %s', $dbKeys));
         }
 
         return $evictedKeys;
