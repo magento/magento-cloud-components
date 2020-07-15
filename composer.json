@@ -6,6 +6,7 @@
   "require": {
     "php": "^7.0",
     "ext-json": "*",
+    "colinmollenhour/cache-backend-redis": "^1.9",
     "colinmollenhour/credis": "^1.6",
     "newrelic/monolog-enricher": "^1.0"
   },

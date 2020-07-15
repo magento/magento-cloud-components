@@ -11,14 +11,16 @@ use Magento\Framework\App\Cache\Type\FrontendPool;
 use Magento\Framework\App\DeploymentConfig;
 use Psr\Log\LoggerInterface;
 use Credis_Client as Client;
+use Cm_Cache_Backend_Redis as Backend;
 
 /**
  * Performs force key eviction with a "scan" command.
  */
 class Evictor
 {
-    const EVICTION_LIMIT = 10000;
-    const CONFIG_PATH = 'cache_evict/enabled';
+    const DEFAULT_EVICTION_LIMIT = 10000;
+    const CONFIG_PATH_ENABLED = 'cache_evict/enabled';
+    const CONFIG_PATH_LIMIT = 'cache_evict/limit';
 
     /**
      * @var DeploymentConfig
@@ -95,7 +97,10 @@ class Evictor
         $evictedKeys = 0;
 
         do {
-            $keys = $client->scan($iterator, '*', self::EVICTION_LIMIT);
+            $keys = $client->scan(
+                $iterator, Backend::PREFIX_KEY . '*',
+                (int)$this->deploymentConfig->get(self::CONFIG_PATH_LIMIT, self::DEFAULT_EVICTION_LIMIT)
+            );
 
             if ($keys === false) {
                 $this->logger->debug('Reached end');
