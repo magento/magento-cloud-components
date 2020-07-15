@@ -37,7 +37,7 @@ class CacheEvict extends Command
      */
     protected function configure()
     {
-        $this->setDescription('Evicts unused keys');
+        $this->setDescription('Evicts unused keys by performing scan command');
     }
 
     /**
@@ -45,12 +45,12 @@ class CacheEvict extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('Begin eviction of cache keys');
+        $output->writeln('Begin scanning of cache keys');
 
         $count = $this->evictor->evict();
 
         $output->writeln(sprintf(
-            'Total evicted keys: %s',
+            'Total scanned keys: %s',
             $count
         ));
     }
