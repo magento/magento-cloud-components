@@ -111,7 +111,7 @@ class Evictor
             }
 
             /* Give Redis some time to handle other requests */
-            usleep(20000);
+            usleep(100);
         } while ($iterator > 0);
 
         return $evictedKeys;
