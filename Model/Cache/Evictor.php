@@ -19,6 +19,7 @@ use Cm_Cache_Backend_Redis as Backend;
 class Evictor
 {
     const DEFAULT_EVICTION_LIMIT = 10000;
+    const DEFAULT_SLEEP_TIMEOUT = 100;
     const CONFIG_PATH_ENABLED = 'cache_evict/enabled';
     const CONFIG_PATH_LIMIT = 'cache_evict/limit';
 
@@ -111,7 +112,7 @@ class Evictor
             }
 
             /* Give Redis some time to handle other requests */
-            usleep(100);
+            usleep(self::DEFAULT_SLEEP_TIMEOUT);
         } while ($iterator > 0);
 
         return $evictedKeys;
