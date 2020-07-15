@@ -19,7 +19,7 @@ use Cm_Cache_Backend_Redis as Backend;
 class Evictor
 {
     const DEFAULT_EVICTION_LIMIT = 10000;
-    const DEFAULT_SLEEP_TIMEOUT = 100;
+    const DEFAULT_SLEEP_TIMEOUT = 20000;
     const CONFIG_PATH_ENABLED = 'cache_evict/enabled';
     const CONFIG_PATH_LIMIT = 'cache_evict/limit';
 
