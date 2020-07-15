@@ -98,7 +98,8 @@ class Evictor
 
         do {
             $keys = $client->scan(
-                $iterator, Backend::PREFIX_KEY . '*',
+                $iterator,
+                Backend::PREFIX_KEY . '*',
                 (int)$this->deploymentConfig->get(self::CONFIG_PATH_LIMIT, self::DEFAULT_EVICTION_LIMIT)
             );
 
