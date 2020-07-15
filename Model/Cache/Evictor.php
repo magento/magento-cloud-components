@@ -109,6 +109,9 @@ class Evictor
                 $keysCount = count($keys);
                 $evictedKeys += $keysCount;
             }
+
+            /* Give Redis some time to handle other requests */
+            usleep(20000);
         } while ($iterator > 0);
 
         return $evictedKeys;
