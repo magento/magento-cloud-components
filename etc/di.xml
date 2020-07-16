@@ -12,6 +12,7 @@
                 <item name="configShowStoreUrlCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigShowStoreUrlCommand</item>
                 <item name="configShowEntityUrlsCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigShowEntityUrlsCommand</item>
                 <item name="ConfigShowDefaultUrlCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigShowDefaultUrlCommand</item>
+                <item name="CacheEvict" xsi:type="object">Magento\CloudComponents\Console\Command\CacheEvict</item>
             </argument>
         </arguments>
     </type>
