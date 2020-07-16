@@ -6,6 +6,8 @@
   "require": {
     "php": "^7.0",
     "ext-json": "*",
+    "colinmollenhour/cache-backend-redis": "^1.9",
+    "colinmollenhour/credis": "^1.6",
     "newrelic/monolog-enricher": "^1.0"
   },
   "suggest": {
@@ -20,6 +22,9 @@
     "phpstan/phpstan": "^0.11",
     "phpunit/phpunit": "^6.2",
     "squizlabs/php_codesniffer": "^3.0"
+  },
+  "config": {
+    "sort-packages": true
   },
   "scripts": {
     "test": [

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="cache_evict">
+        <job name="cache_evict_keys" instance="Magento\CloudComponents\Cron\Evict" method="execute">
+            <schedule>0 */12 * * *</schedule>
+        </job>
+    </group>
+</config>
