@@ -26,3 +26,5 @@ Each Magento source file included in this distribution is licensed under OSL 3.0
 
 Subject to Licensee's payment of fees and compliance with the terms and conditions of the Customer Agreement, the Customer Agreement supersedes the OSL 3.0 license for each source file. Please visit https://magento.com/legal/terms for the full text of the
 Customer Agreement.
+
+TEST
