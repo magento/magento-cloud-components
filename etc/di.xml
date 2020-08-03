@@ -12,18 +12,7 @@
                 <item name="configShowStoreUrlCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigShowStoreUrlCommand</item>
                 <item name="configShowEntityUrlsCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigShowEntityUrlsCommand</item>
                 <item name="ConfigShowDefaultUrlCommand" xsi:type="object">Magento\CloudComponents\Console\Command\ConfigShowDefaultUrlCommand</item>
-            </argument>
-        </arguments>
-    </type>
-
-    <!-- Enable NewRelic Logs in Context -->
-    <type name="Magento\Framework\Logger\Monolog">
-        <arguments>
-            <argument name="handlers"  xsi:type="array">
-                <item name="newRelic" xsi:type="object">NewRelic\Monolog\Enricher\Handler</item>
-            </argument>
-            <argument name="processors"  xsi:type="array">
-                <item name="newRelic" xsi:type="object">NewRelic\Monolog\Enricher\Processor</item>
+                <item name="CacheEvict" xsi:type="object">Magento\CloudComponents\Console\Command\CacheEvict</item>
             </argument>
         </arguments>
     </type>

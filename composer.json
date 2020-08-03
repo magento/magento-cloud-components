@@ -2,11 +2,12 @@
   "name": "magento/magento-cloud-components",
   "description": "Cloud Components Module for Magento 2.x",
   "type": "magento2-module",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "require": {
     "php": "^7.0",
     "ext-json": "*",
-    "newrelic/monolog-enricher": "^1.0"
+    "colinmollenhour/cache-backend-redis": "^1.9",
+    "colinmollenhour/credis": "^1.6"
   },
   "suggest": {
     "magento/framework": "*",
@@ -20,6 +21,9 @@
     "phpstan/phpstan": "^0.11",
     "phpunit/phpunit": "^6.2",
     "squizlabs/php_codesniffer": "^3.0"
+  },
+  "config": {
+    "sort-packages": true
   },
   "scripts": {
     "test": [
