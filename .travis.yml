@@ -14,7 +14,7 @@ language: php
 php:
   - '7.1'
   - '7.2'
-  - '7.3'
+  - '7.4'
 
 env:
   - TEST_SUITE=functional
@@ -36,6 +36,11 @@ jobs:
         - TEST_SUITE=static-unit
     - script: ./tests/travis/static-unit.sh;
       php: '7.3'
+      env:
+        - TEST_SUITE=static-unit
+    - script: ./tests/travis/static-unit.sh;
+      php: '7.4'
+      dist: bionic
       env:
         - TEST_SUITE=static-unit
 
