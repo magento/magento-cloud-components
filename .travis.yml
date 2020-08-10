@@ -11,13 +11,6 @@ services:
   - docker
 
 language: php
-php:
-  - '7.1'
-  - '7.2'
-  - '7.4'
-
-env:
-  - TEST_SUITE=functional
 
 stages:
   - static-unit
@@ -43,6 +36,21 @@ jobs:
       dist: bionic
       env:
         - TEST_SUITE=static-unit
+    - stage: test
+      php: '7.1'
+      env:
+        - TEST_SUITE=functional
+    - php: '7.2'
+      env:
+        - TEST_SUITE=functional
+    - php: '7.3'
+      env:
+        - TEST_SUITE=functional
+    - php: '7.4'
+      dist: bionic
+      env:
+        - TEST_SUITE=functional
+
 
 install:
   - composer config github-oauth.github.com ${GITHUB_TOKEN}
