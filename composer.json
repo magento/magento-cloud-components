@@ -19,7 +19,7 @@
     "consolidation/robo": "^1.2",
     "phpmd/phpmd": "@stable",
     "phpstan/phpstan": "^0.11",
-    "phpunit/phpunit": "^6.2",
+    "phpunit/phpunit": "^7.2",
     "squizlabs/php_codesniffer": "^3.0"
   },
   "config": {
