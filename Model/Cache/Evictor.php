@@ -74,9 +74,9 @@ class Evictor
             }
 
             $dbKeys = $this->run(
-                $cacheConfig['backend_options']['server'],
-                $cacheConfig['backend_options']['port'],
-                $cacheConfig['backend_options']['database']
+                (string)$cacheConfig['backend_options']['server'],
+                (int)$cacheConfig['backend_options']['port'],
+                (int)$cacheConfig['backend_options']['database']
             );
             $evictedKeys += $dbKeys;
 
