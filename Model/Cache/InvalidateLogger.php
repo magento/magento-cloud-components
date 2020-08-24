@@ -8,11 +8,18 @@ declare(strict_types=1);
 
 namespace Magento\CloudComponents\Model\Cache;
 
+use Magento\Framework\App\Request\Http as HttpRequest;
+use Psr\Log\LoggerInterface as Logger;
+use Magento\CloudComponents\Model\DebugTrace;
+
 /**
  * Log cache invalidation to a file
  */
 class InvalidateLogger extends \Magento\Framework\Cache\InvalidateLogger
 {
+    /**
+     * @var string[]
+     */
     private $tagsToLog = [
         'cat_p',
         'cat_c',
@@ -51,31 +58,44 @@ class InvalidateLogger extends \Magento\Framework\Cache\InvalidateLogger
     ];
 
     /**
+     * @var DebugTrace
+     */
+    private $debugTrace;
+
+    /**
+     * @param HttpRequest $request
+     * @param Logger $logger
+     * @param DebugTrace $debugTrace
+     */
+    public function __construct(
+        HttpRequest $request,
+        Logger $logger,
+        DebugTrace $debugTrace
+    ) {
+        parent::__construct($request, $logger);
+        $this->debugTrace = $debugTrace;
+    }
+
+
+    /**
      * Log cache invalidation to a file
      *
      * @param mixed $invalidateInfo
      */
     public function execute($invalidateInfo)
     {
+        $needTrace = false;
         if (is_array($invalidateInfo) && isset($invalidateInfo['tags'])) {
             foreach ($invalidateInfo['tags'] as $tag) {
                 if (in_array(strtolower($tag), $this->tagsToLog)) {
-                    if (function_exists('gzcompress')) {
-                        $invalidateInfo['trace'] =  bin2hex(
-                            gzcompress(
-                                print_r(
-                                    debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS),
-                                    true
-                                )
-                            )
-                        );
-                    } else {
-                        $invalidateInfo['trace'] = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-                    }
+                    $needTrace = true;
                 }
             }
-        }
 
+            if ($needTrace) {
+                $invalidateInfo['trace'] = $this->debugTrace->getTrace();
+            }
+        }
         parent::execute($invalidateInfo);
     }
 }

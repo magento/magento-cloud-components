@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Magento\CloudComponents\Model\Indexation;
 
+use Magento\CloudComponents\Model\DebugTrace;
 use Magento\Framework\Indexer\ActionInterface;
 use Psr\Log\LoggerInterface;
 
@@ -22,11 +23,20 @@ class Logger
     private $logger;
 
     /**
-     * @param LoggerInterface $logger
+     * @var DebugTrace
      */
-    public function __construct(LoggerInterface $logger)
-    {
+    private $debugTrace;
+
+    /**
+     * @param LoggerInterface $logger
+     * @param DebugTrace $debugTrace
+     */
+    public function __construct(
+        LoggerInterface $logger,
+        DebugTrace $debugTrace
+    ) {
         $this->logger = $logger;
+        $this->debugTrace = $debugTrace;
     }
 
     /**
@@ -39,7 +49,7 @@ class Logger
         $this->logger->debug(
             'full_indexation: ' . get_class($subject),
             [
-                'trace' => debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)
+                'trace' => $this->debugTrace->getTrace()
             ]
         );
     }
