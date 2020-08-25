@@ -76,7 +76,6 @@ class InvalidateLogger extends \Magento\Framework\Cache\InvalidateLogger
         $this->debugTrace = $debugTrace;
     }
 
-
     /**
      * Log cache invalidation to a file
      *
