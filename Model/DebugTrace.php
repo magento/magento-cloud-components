@@ -60,6 +60,9 @@ class DebugTrace
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
         foreach ($trace as $index => $line) {
+            if (!isset($line['function'], $line['class'], $line['file'])) {
+                continue;
+            }
             if (in_array($line['function'], $this->notAllowedFunctions)
                 || in_array($line['class'], $this->notAllowedClasses)
                 || strpos($line['file'], 'Interceptor.php') !== false
