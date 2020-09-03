@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\CloudComponents\Test\Functional\Acceptance;
 
 /**
- * @group php73
+ * @group php74
  */
 class AcceptanceCest
 {
@@ -49,7 +49,7 @@ class AcceptanceCest
     public function testPatches(\CliTester $I, \Codeception\Example $data): void
     {
         $this->prepareTemplate($I, $data['magentoVersion']);
-        $this->removeESIfExists($I);
+        $this->removeESIfExists($I, $data['magentoVersion']);
         $I->runEceDockerCommand('build:compose --mode=production');
         $I->runDockerComposeCommand('run build cloud-build');
         $I->startEnvironment();
@@ -62,18 +62,21 @@ class AcceptanceCest
 
     /**
      * @param \CliTester $I
+     * @param string $magentoVersion
      */
-    protected function removeESIfExists(\CliTester $I): void
+    protected function removeESIfExists(\CliTester $I, string $magentoVersion): void
     {
-        $services = $I->readServicesYaml();
+        if ($magentoVersion !== 'master' && version_compare($magentoVersion, '2.4.0', '<')) {
+            $services = $I->readServicesYaml();
 
-        if (isset($services['elasticsearch'])) {
-            unset($services['elasticsearch']);
-            $I->writeServicesYaml($services);
+            if (isset($services['elasticsearch'])) {
+                unset($services['elasticsearch']);
+                $I->writeServicesYaml($services);
 
-            $app = $I->readAppMagentoYaml();
-            unset($app['relationships']['elasticsearch']);
-            $I->writeAppMagentoYaml($app);
+                $app = $I->readAppMagentoYaml();
+                unset($app['relationships']['elasticsearch']);
+                $I->writeAppMagentoYaml($app);
+            }
         }
     }
 
@@ -83,7 +86,7 @@ class AcceptanceCest
     protected function patchesDataProvider(): array
     {
         return [
-            ['magentoVersion' => '2.3.3'],
+            ['magentoVersion' => '2.4.0'],
             ['magentoVersion' => 'master'],
         ];
     }
