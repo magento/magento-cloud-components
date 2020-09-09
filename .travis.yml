@@ -46,6 +46,9 @@ jobs:
       env:
         - TEST_SUITE=functional
 
+before_install:
+  # https://github.com/kylekatarnls/update-helper/issues/9
+  - if [ -n "${COMPOSER_VERSION}" ]; then travis_retry composer self-update ${COMPOSER_VERSION}; fi;
 
 install:
   - composer config github-oauth.github.com ${GITHUB_TOKEN}
