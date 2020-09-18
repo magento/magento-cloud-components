@@ -60,11 +60,7 @@ class Evictor
                 $name
             ));
 
-            if (!isset(
-                $cacheConfig['backend_options']['server'],
-                $cacheConfig['backend_options']['port'],
-                $cacheConfig['backend_options']['database']
-            )) {
+            if (!$this->isCacheConfigValid($cacheConfig)) {
                 $this->logger->debug(sprintf(
                     'Cache config for database "%s" config is not valid',
                     $name
@@ -74,9 +70,9 @@ class Evictor
             }
 
             $dbKeys = $this->run(
-                (string)$cacheConfig['backend_options']['server'],
-                (int)$cacheConfig['backend_options']['port'],
-                (int)$cacheConfig['backend_options']['database']
+                (string)$this->getCacheConfigValue($name, $cacheConfig, 'server'),
+                (int)$this->getCacheConfigValue($name, $cacheConfig, 'port'),
+                (int)$this->getCacheConfigValue($name, $cacheConfig, 'database')
             );
             $evictedKeys += $dbKeys;
 
@@ -84,6 +80,41 @@ class Evictor
         }
 
         return $evictedKeys;
+    }
+
+    /**
+     * Get Cache Config Value
+     *
+     * @param array $cacheConfig
+     * @param string $configKey
+     * @return string
+     */
+    private function getCacheConfigValue($cacheConfig, $configKey)
+    {
+        if (isset($cacheConfig['backend_options'][$configKey])) {
+            return $cacheConfig['backend_options'][$configKey];
+        }
+        if (isset($cacheConfig['backend_options']['remote_backend_options'][$configKey])) {
+            return $cacheConfig['backend_options']['remote_backend_options'][$configKey];
+        }
+        return '';
+    }
+
+    /**
+     * Validate Cache Configuration
+     *
+     * @param $cacheConfig
+     * @return bool
+     */
+    private function isCacheConfigValid($cacheConfig)
+    {
+        if ($this->getCacheConfigValue($cacheConfig, 'server')
+            && $this->getCacheConfigValue($cacheConfig, 'port')
+            && $this->getCacheConfigValue($cacheConfig, 'database')
+        ) {
+            return true;
+        }
+        return false;
     }
 
     /**
