@@ -89,7 +89,7 @@ class Evictor
      * @param string $configKey
      * @return string
      */
-    private function getCacheConfigValue($cacheConfig, $configKey)
+    private function getCacheConfigValue($cacheConfig, $configKey): string
     {
         if (isset($cacheConfig['backend_options'][$configKey])) {
             return $cacheConfig['backend_options'][$configKey];
@@ -106,7 +106,7 @@ class Evictor
      * @param $cacheConfig
      * @return bool
      */
-    private function isCacheConfigValid($cacheConfig)
+    private function isCacheConfigValid($cacheConfig): bool
     {
         if ($this->getCacheConfigValue($cacheConfig, 'server')
             && $this->getCacheConfigValue($cacheConfig, 'port')
