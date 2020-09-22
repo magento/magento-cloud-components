@@ -22,6 +22,9 @@ class Evictor
     const DEFAULT_SLEEP_TIMEOUT = 20000;
     const CONFIG_PATH_ENABLED = 'cache_evict/enabled';
     const CONFIG_PATH_LIMIT = 'cache_evict/limit';
+    const BACKEND_OPTION_KEY_SERVER = 'server';
+    const BACKEND_OPTION_KEY_PORT = 'port';
+    const BACKEND_OPTION_KEY_DATABASE = 'database';
 
     /**
      * @var DeploymentConfig
@@ -60,7 +63,8 @@ class Evictor
                 $name
             ));
 
-            if (!$this->isCacheConfigValid($cacheConfig)) {
+            $backendOptions = $this->getConfigBackendOptions((array)$cacheConfig);
+            if (!$this->validateBackendOptions($backendOptions)) {
                 $this->logger->debug(sprintf(
                     'Cache config for database "%s" config is not valid',
                     $name
@@ -70,9 +74,9 @@ class Evictor
             }
 
             $dbKeys = $this->run(
-                (string)$this->getCacheConfigValue($name, $cacheConfig, 'server'),
-                (int)$this->getCacheConfigValue($name, $cacheConfig, 'port'),
-                (int)$this->getCacheConfigValue($name, $cacheConfig, 'database')
+                (string)$backendOptions[self::BACKEND_OPTION_KEY_SERVER],
+                (int)$backendOptions[self::BACKEND_OPTION_KEY_PORT],
+                (int)$backendOptions[self::BACKEND_OPTION_KEY_DATABASE]
             );
             $evictedKeys += $dbKeys;
 
@@ -86,31 +90,31 @@ class Evictor
      * Get Cache Config Value
      *
      * @param array $cacheConfig
-     * @param string $configKey
-     * @return string
+     * @return array
      */
-    private function getCacheConfigValue($cacheConfig, $configKey): string
+    private function getConfigBackendOptions(array $cacheConfig): array
     {
-        if (isset($cacheConfig['backend_options'][$configKey])) {
-            return $cacheConfig['backend_options'][$configKey];
+        $backendOptions = [];
+        if (isset($cacheConfig['backend_options'])) {
+            $backendOptions = $cacheConfig['backend_options'];
         }
-        if (isset($cacheConfig['backend_options']['remote_backend_options'][$configKey])) {
-            return $cacheConfig['backend_options']['remote_backend_options'][$configKey];
+        if (isset($cacheConfig['backend_options']['remote_backend_options'])) {
+            $backendOptions = $cacheConfig['backend_options']['remote_backend_options'];
         }
-        return '';
+        return (array)$backendOptions;
     }
 
     /**
      * Validate Cache Configuration
      *
-     * @param $cacheConfig
+     * @param array $backendOptions
      * @return bool
      */
-    private function isCacheConfigValid($cacheConfig): bool
+    private function validateBackendOptions(array $backendOptions): bool
     {
-        if ($this->getCacheConfigValue($cacheConfig, 'server')
-            && $this->getCacheConfigValue($cacheConfig, 'port')
-            && $this->getCacheConfigValue($cacheConfig, 'database')
+        if (isset($backendOptions[self::BACKEND_OPTION_KEY_SERVER])
+            && isset($backendOptions[self::BACKEND_OPTION_KEY_PORT])
+            && isset($backendOptions[self::BACKEND_OPTION_KEY_DATABASE])
         ) {
             return true;
         }
