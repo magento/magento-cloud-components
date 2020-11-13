@@ -54,6 +54,7 @@ class InvalidateLogger extends \Magento\Framework\Cache\InvalidateLogger
         'acl_cache',
         'reflection',
         'db_ddl',
+        'LOCKED_RECORD_INFO_SYSTEM_CONFIG',
         'all'
     ];
 
