@@ -29,6 +29,6 @@ class UrlFixer
             return preg_replace('|/magento/|', '/', $url, 1);
         }
 
-        return $url;
+        return rtrim($url, '/');
     }
 }
