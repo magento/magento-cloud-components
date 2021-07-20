@@ -74,17 +74,17 @@ class UrlFixerTest extends TestCase
         return [
             'rewrites enabled, url without "magento" part' => [
                 'http://example.com/',
-                'http://example.com/',
+                'http://example.com',
             ],
             'rewrites disabled, url without "magento" part' => [
                 'http://example.com/',
-                'http://example.com/',
+                'http://example.com',
                 true,
                 true,
             ],
             'rewrites enabled, url with "magento" part' => [
                 'http://example.com/magento/',
-                'http://example.com/magento/',
+                'http://example.com/magento',
                 false,
                 true,
             ],
@@ -108,13 +108,13 @@ class UrlFixerTest extends TestCase
             ],
             'rewrites disabled, url with "magento2" part' => [
                 'http://example.com/magento2/',
-                'http://example.com/magento2/',
+                'http://example.com/magento2',
                 true,
                 false,
             ],
             'rewrites disabled, with "magento" host' => [
                 'http://magento.com/magento2/',
-                'http://magento.com/magento2/',
+                'http://magento.com/magento2',
                 true,
                 false,
             ],

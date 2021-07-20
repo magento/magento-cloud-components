@@ -34,6 +34,7 @@ class CacheFlushAll implements ObserverInterface
      * Log cache flush action to a file
      *
      * @param Observer $observer
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function execute(Observer $observer)
     {

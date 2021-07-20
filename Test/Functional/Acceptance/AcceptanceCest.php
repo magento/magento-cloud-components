@@ -50,7 +50,7 @@ class AcceptanceCest
     {
         $this->prepareTemplate($I, $data['magentoVersion']);
         $this->removeESIfExists($I, $data['magentoVersion']);
-        $I->runEceDockerCommand('build:compose --mode=production');
+        $I->generateDockerCompose('--mode=production');
         $I->runDockerComposeCommand('run build cloud-build');
         $I->startEnvironment();
         $I->runDockerComposeCommand('run deploy cloud-deploy');
