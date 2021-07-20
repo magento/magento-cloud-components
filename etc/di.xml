@@ -66,6 +66,6 @@
         </arguments>
     </type>
     <type name="Magento\Framework\Indexer\ActionInterface">
-        <plugin name="cache_cleaner_after_reindex" type="Magento\CloudComponents\Model\Indexation\Logger" />
+        <plugin name="cache_logger_after_reindex" type="Magento\CloudComponents\Model\Indexation\Logger" />
     </type>
 </config>
