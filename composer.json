@@ -2,9 +2,9 @@
   "name": "magento/magento-cloud-components",
   "description": "Cloud Components Module for Magento 2.x",
   "type": "magento2-module",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "require": {
-    "php": "^7.0",
+    "php": "^7.1",
     "ext-json": "*",
     "colinmollenhour/cache-backend-redis": "^1.9",
     "colinmollenhour/credis": "^1.6"

@@ -16,7 +16,7 @@ class Debug extends \Magento\Framework\Logger\Handler\Debug
      * @param array $record
      * @return mixed
      */
-    public function isHandling(array $record)
+    public function isHandling(array $record): bool
     {
         return parent::isHandling($record);
     }
