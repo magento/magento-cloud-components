@@ -1,8 +1,9 @@
 parameters:
     level: 1
     paths:
-        - Console
-        - Model
+        - %currentWorkingDirectory%/Console
+        - %currentWorkingDirectory%/Model
+        - %currentWorkingDirectory%/Cron
     excludes_analyse:
         - %currentWorkingDirectory%/Test/*
     ignoreErrors:

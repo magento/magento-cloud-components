@@ -36,9 +36,9 @@
       "@phpmd",
       "@phpunit"
     ],
-    "phpstan": "phpstan analyse -c test/static/phpstan.neon",
-    "phpcs": "phpcs ./ --standard=test/static/phpcs-ruleset.xml -p -n",
-    "phpmd": "phpmd Console xml test/static/phpmd-ruleset.xml",
+    "phpstan": "phpstan analyse -c tests/static/phpstan.neon",
+    "phpcs": "phpcs ./ --standard=tests/static/phpcs-ruleset.xml -p -n",
+    "phpmd": "phpmd Console xml tests/static/phpmd-ruleset.xml",
     "phpunit": "phpunit --configuration Test/Unit",
     "pre-install-cmd": "@install_suggested",
     "pre-update-cmd": "@install_suggested",
