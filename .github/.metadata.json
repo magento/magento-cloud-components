@@ -1,0 +1,26 @@
+{
+  "templateVersion": "0.1",
+  "product": {
+    "name": "Magento Cloud Components",
+    "description": "The Magento Cloud Components module extends Magento Commerce core functionality for sites deployed on the Cloud platform. This module contains cloud-specific functionality for use with the ece-tools package."
+  },
+  "contacts": {
+    "team": {
+      "name": "Magic Mountain",
+      "DL": "Grp-magento-cloud-all",
+      "slackChannel": "magic_mountain"
+    }
+  },
+  "ticketTracker": {
+    "functionalJiraQueue": {
+      "projectKey": "MCLOUD"
+    },
+    "securityJiraQueue": {
+      "projectKey": "MAGREQ",
+      "component": "Magento Cloud Engineering"
+    }
+  },
+  "staticScan": {
+    "enable": false
+  }
+}
