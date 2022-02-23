@@ -34,7 +34,7 @@ class UrlFinderFactoryTest extends TestCase
     /**
      * @inheritDoc
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->objectManagerMock = $this->getMockForAbstractClass(ObjectManagerInterface::class);
 

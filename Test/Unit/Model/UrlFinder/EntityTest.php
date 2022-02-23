@@ -40,7 +40,7 @@ class EntityTest extends TestCase
     /**
      * @inheritDoc
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->urlFactoryMock = $this->createMock(UrlFactory::class);
         $this->urlFinderMock = $this->getMockForAbstractClass(UrlFinderInterface::class);

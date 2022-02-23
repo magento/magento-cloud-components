@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\CloudComponents\Test\Functional\Acceptance;
 
 /**
- * @group php74
+ * @group php81
  */
 class AcceptanceCest
 {
@@ -31,12 +31,27 @@ class AcceptanceCest
         $I->createArtifactsDir();
         $I->createArtifactCurrentTestedCode('components', '1.0.99');
         $I->addArtifactsRepoToComposer();
-        $I->addEceDockerGitRepoToComposer();
         $I->addDependencyToComposer('magento/magento-cloud-components', '1.0.99');
-        $I->addDependencyToComposer(
+
+        $I->addEceToolsGitRepoToComposer();
+        $I->addEceDockerGitRepoToComposer();
+        $I->addCloudPatchesGitRepoToComposer();
+        $I->addQualityPatchesGitRepoToComposer();
+
+        $dependencies = [
+            'magento/ece-tools',
             'magento/magento-cloud-docker',
-            $I->getDependencyVersion('magento/magento-cloud-docker')
-        );
+            'magento/magento-cloud-patches',
+            'magento/quality-patches'
+        ];
+
+        foreach ($dependencies as $dependency) {
+            $I->assertTrue(
+                $I->addDependencyToComposer($dependency, $I->getDependencyVersion($dependency)),
+                'Can not add dependency ' . $dependency
+            );
+        }
+
         $I->composerUpdate();
     }
 
@@ -86,8 +101,7 @@ class AcceptanceCest
     protected function patchesDataProvider(): array
     {
         return [
-            ['magentoVersion' => '2.4.0'],
-            ['magentoVersion' => 'master'],
+            ['magentoVersion' => '2.4.4'],
         ];
     }
 
