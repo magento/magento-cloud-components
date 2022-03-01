@@ -1,11 +1,12 @@
 parameters:
     level: 1
     paths:
-        - Console
-        - Model
+        - %currentWorkingDirectory%/Console
+        - %currentWorkingDirectory%/Model
+        - %currentWorkingDirectory%/Cron
     excludes_analyse:
         - %currentWorkingDirectory%/Test/*
+    reportUnmatchedIgnoredErrors: false
     ignoreErrors:
-        -
-            message: '#has invalid typehint type#'
-            path: Model/UrlFinder/Product.php
+        - message: '#has invalid typehint type#'
+          path: %currentWorkingDirectory%/Model/UrlFinder/Product.php

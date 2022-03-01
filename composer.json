@@ -2,9 +2,9 @@
   "name": "magento/magento-cloud-components",
   "description": "Cloud Components Module for Magento 2.x",
   "type": "magento2-module",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "require": {
-    "php": "^7.1",
+    "php": "^7.2 || ^8.0",
     "ext-json": "*",
     "colinmollenhour/cache-backend-redis": "^1.9",
     "colinmollenhour/credis": "^1.6"
@@ -15,11 +15,15 @@
     "magento/module-url-rewrite": "*"
   },
   "require-dev": {
-    "codeception/codeception": "^2.5.3",
+    "codeception/codeception": "^4.1",
+    "codeception/module-asserts": "^1.2",
+    "codeception/module-db": "^1.0",
+    "codeception/module-phpbrowser": "^1.0",
+    "codeception/module-rest": "^1.2",
     "consolidation/robo": "^1.2",
     "phpmd/phpmd": "@stable",
-    "phpstan/phpstan": "^0.11",
-    "phpunit/phpunit": "^7.2",
+    "phpstan/phpstan": "^0.12",
+    "phpunit/phpunit": "^8.5 || ^9.5",
     "squizlabs/php_codesniffer": "^3.0"
   },
   "config": {
@@ -32,9 +36,9 @@
       "@phpmd",
       "@phpunit"
     ],
-    "phpstan": "phpstan analyse -c test/static/phpstan.neon",
-    "phpcs": "phpcs ./ --standard=test/static/phpcs-ruleset.xml -p -n",
-    "phpmd": "phpmd Console xml test/static/phpmd-ruleset.xml",
+    "phpstan": "phpstan analyse -c tests/static/phpstan.neon",
+    "phpcs": "phpcs ./ --standard=tests/static/phpcs-ruleset.xml -p -n",
+    "phpmd": "phpmd Console xml tests/static/phpmd-ruleset.xml",
     "phpunit": "phpunit --configuration Test/Unit",
     "pre-install-cmd": "@install_suggested",
     "pre-update-cmd": "@install_suggested",

@@ -43,7 +43,7 @@ class CacheEvict extends Command
     /**
      * @inheritDoc
      */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): void
     {
         $output->writeln('Begin scanning of cache keys');
 
