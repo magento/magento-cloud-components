@@ -56,7 +56,7 @@ class ConfigShowDefaultUrlCommand extends Command
     /**
      * Returns base url for default store of default website
      *
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

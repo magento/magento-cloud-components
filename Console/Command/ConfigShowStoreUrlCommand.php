@@ -72,7 +72,7 @@ class ConfigShowStoreUrlCommand extends Command
     /**
      * Returns store url or all store urls if store id wasn't provided
      *
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

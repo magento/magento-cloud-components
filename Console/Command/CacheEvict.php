@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace Magento\CloudComponents\Console\Command;
 
 use Magento\CloudComponents\Model\Cache\Evictor;
+use Magento\Framework\Console\Cli;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -33,7 +34,7 @@ class CacheEvict extends Command
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     protected function configure()
     {
@@ -41,9 +42,9 @@ class CacheEvict extends Command
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
-    public function execute(InputInterface $input, OutputInterface $output): void
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('Begin scanning of cache keys');
 
@@ -53,5 +54,7 @@ class CacheEvict extends Command
             'Total scanned keys: %s',
             $count
         ));
+
+        return Cli::RETURN_SUCCESS;
     }
 }
