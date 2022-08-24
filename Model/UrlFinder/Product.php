@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Magento\CloudComponents\Model\UrlFinder;
 
+use Magento\Catalog\Model\Product\Visibility as ProductVisibility;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\CloudComponents\Model\UrlFinderInterface as CloudUrlFinderInterface;
@@ -44,6 +45,11 @@ class Product implements CloudUrlFinderInterface
     private $productCollectionFactory;
 
     /**
+     * @var ProductVisibility
+     */
+    private $productVisibility;
+
+    /**
      * @var integer
      */
     private $productLimit;
@@ -51,6 +57,7 @@ class Product implements CloudUrlFinderInterface
     /**
      * @param UrlFixer $urlFixer
      * @param CollectionFactory $productCollectionFactory
+     * @param ProductVisibility $productVisibility
      * @param StoreInterface[] $stores
      * @param array $productSku
      * @param int $productLimit
@@ -58,12 +65,14 @@ class Product implements CloudUrlFinderInterface
     public function __construct(
         UrlFixer $urlFixer,
         CollectionFactory $productCollectionFactory,
+        ProductVisibility $productVisibility,
         array $stores,
         array $productSku = [],
         int $productLimit = self::PRODUCT_LIMIT
     ) {
         $this->urlFixer = $urlFixer;
         $this->productCollectionFactory = $productCollectionFactory;
+        $this->productVisibility = $productVisibility;
         $this->stores = $stores;
         $this->productSku = $productSku;
         $this->productLimit = $productLimit;
@@ -100,6 +109,7 @@ class Product implements CloudUrlFinderInterface
         /** @var Collection $collection */
         $collection = $this->productCollectionFactory->create();
         $collection->addStoreFilter($storeId);
+        $collection->setVisibility($this->productVisibility->getVisibleInSiteIds());
 
         if (count($this->productSku)) {
             $collection->addAttributeToFilter('sku', $this->productSku);
