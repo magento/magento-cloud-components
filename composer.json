@@ -2,7 +2,7 @@
   "name": "magento/magento-cloud-components",
   "description": "Cloud Components Module for Magento 2.x",
   "type": "magento2-module",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "require": {
     "php": "^7.2 || ^8.0",
     "ext-json": "*",
@@ -20,7 +20,7 @@
     "codeception/module-db": "^1.0",
     "codeception/module-phpbrowser": "^1.0",
     "codeception/module-rest": "^1.2",
-    "consolidation/robo": "^1.2",
+    "consolidation/robo": "^1.2 || ^2.0",
     "phpmd/phpmd": "@stable",
     "phpstan/phpstan": "^0.12",
     "phpunit/phpunit": "^8.5 || ^9.5",
