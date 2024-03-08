@@ -10,7 +10,7 @@ namespace Magento\CloudComponents\Test\Functional\Acceptance;
 /**
  * @group php82
  */
-class AcceptanceCest extends AcceptanceCest
+class Acceptance82Cest extends AcceptanceCest
 {
     /**
      * @return array
