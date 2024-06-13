@@ -64,6 +64,7 @@ class Product implements CloudUrlFinderInterface
      */
     public function __construct(
         UrlFixer $urlFixer,
+        // @phpstan-ignore-next-line
         CollectionFactory $productCollectionFactory,
         ProductVisibility $productVisibility,
         array $stores,
