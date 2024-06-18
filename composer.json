@@ -6,7 +6,7 @@
   "require": {
     "php": "^8.0",
     "ext-json": "*",
-    "colinmollenhour/cache-backend-redis": "1.14.2",
+    "colinmollenhour/cache-backend-redis": "^1.14.2",
     "colinmollenhour/credis": "^1.6"
   },
   "suggest": {
