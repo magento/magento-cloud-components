@@ -7,7 +7,10 @@ declare(strict_types=1);
 
 namespace Magento\CloudComponents\Test\Functional\Acceptance;
 
-abstract class AcceptanceCest
+/**
+ * @group php83
+ */
+class Acceptance83Cest extends AcceptanceCest
 {
     /**
      * @param \CliTester $I
@@ -95,7 +98,12 @@ abstract class AcceptanceCest
     /**
      * @return array
      */
-    abstract protected function patchesDataProvider(): array;
+    protected function patchesDataProvider(): array
+    {
+        return [
+            ['magentoVersion' => '2.4.7'],
+        ];
+    }
 
     /**
      * @param \CliTester $I
