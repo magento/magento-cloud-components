@@ -9,36 +9,17 @@ namespace Magento\CloudComponents\Model\Logger\Handler;
 
 use Monolog\LogRecord;
 
-if (\Monolog\Logger::API == 3) {
+/**
+ * Debug handler which doesn't require debug mode enabled
+ */
+class Debug extends \Magento\Framework\Logger\Handler\Debug
+{
     /**
-     * Debug handler which doesn't require debug mode enabled
+     * @param array $record
+     * @return mixed
      */
-    class Debug extends \Magento\Framework\Logger\Handler\Debug
+    public function isHandling(LogRecord $record): bool
     {
-        /**
-         * @param LogRecord $record
-         * @return mixed
-         */
-        public function isHandling(LogRecord $record): bool
-        {
-            return parent::isHandling($record);
-        }
-    }
-
-}
-else {
-    /**
-     * Debug handler which doesn't require debug mode enabled
-     */
-    class Debug extends \Magento\Framework\Logger\Handler\Debug
-    {
-        /**
-         * @param array $record
-         * @return mixed
-         */
-        public function isHandling(array $record): bool
-        {
-            return parent::isHandling($record);
-        }
+        return parent::isHandling($record);
     }
 }
