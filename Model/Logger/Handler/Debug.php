@@ -13,10 +13,10 @@ namespace Magento\CloudComponents\Model\Logger\Handler;
 class Debug extends \Magento\Framework\Logger\Handler\Debug
 {
     /**
-     * @param array $record
+     * @param \Monolog\LogRecord | array $record
      * @return mixed
      */
-    public function isHandling(array $record): bool
+    public function isHandling(\Monolog\LogRecord|array $record): bool
     {
         return parent::isHandling($record);
     }
