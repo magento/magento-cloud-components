@@ -7,6 +7,9 @@ declare(strict_types=1);
 
 namespace Magento\CloudComponents\Test\Functional\Acceptance;
 
+/**
+ * Base class.
+ */
 abstract class AcceptanceCest
 {
     /**
