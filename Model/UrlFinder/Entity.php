@@ -83,7 +83,7 @@ class Entity implements CloudUrlFinderInterface
             ]);
 
             foreach ($entities as $urlRewrite) {
-                $urls[] = $this->urlFixer->run($store, $url->getUrl($urlRewrite->getRequestPath()));
+                $urls[] = $this->urlFixer->run($store, $url->getBaseUrl().$urlRewrite->getRequestPath());
             }
         }
 
