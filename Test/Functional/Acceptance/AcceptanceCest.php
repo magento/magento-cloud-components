@@ -7,6 +7,11 @@ declare(strict_types=1);
 
 namespace Magento\CloudComponents\Test\Functional\Acceptance;
 
+/**
+ * Class AcceptanceCest
+ *
+ * This class provides acceptance tests for Magento Cloud components.
+ */
 abstract class AcceptanceCest
 {
     /**
