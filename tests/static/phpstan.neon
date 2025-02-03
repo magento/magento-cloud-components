@@ -4,7 +4,7 @@ parameters:
         - %currentWorkingDirectory%/Console
         - %currentWorkingDirectory%/Model
         - %currentWorkingDirectory%/Cron
-    excludes_analyse:
+    excludePaths:
         - %currentWorkingDirectory%/Test/*
     reportUnmatchedIgnoredErrors: false
     ignoreErrors:
