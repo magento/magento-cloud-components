@@ -60,65 +60,25 @@ class EntityTest extends TestCase
     public function testGet()
     {
         $storeMock1 = $this->createMock(Store::class);
-        $storeMock1->expects($this->exactly(2))
-            ->method('getId')
-            ->willReturn('store1');
         $storeMock2 = $this->createMock(Store::class);
-        $storeMock2->expects($this->exactly(2))
-            ->method('getId')
-            ->willReturn('store2');
 
         $urlMock1 = $this->createMock(UrlInterface::class);
-        $urlMock1
-            ->expects($this->any())
-            ->method('setScope')
-            ->with('store1')
-            ->willReturnSelf();
-        $urlMock1
-            ->expects($this->any())
-            ->method('getUrl')
-            ->with('/path1')
-            ->willReturn('http://site1.com/path1');
-
         $urlMock2 = $this->createMock(UrlInterface::class);
-        $urlMock2
-            ->expects($this->any())
-            ->method('getUrl')
-            ->with('/path2')
-            ->willReturn('http://site2.com/path2');
-        $urlMock2
-            ->expects($this->any())
-            ->method('setScope')
-            ->with('store2')
-            ->willReturnSelf();
 
         $urlRewriteMock1 = $this->createMock(UrlRewrite::class);
-        $urlRewriteMock1
-            ->expects($this->once())
-            ->method('getRequestPath')
-            ->willReturn('/path1');
         $urlRewriteMock2 = $this->createMock(UrlRewrite::class);
-        $urlRewriteMock2
-            ->expects($this->once())
-            ->method('getRequestPath')
-            ->willReturn('/path2');
 
-        $this->urlFactoryMock
-            ->expects($this->exactly(2))
-            ->method('create')
-            ->willReturnCallback(function () use ($urlMock1, $urlMock2) {
-                static $callCount = 0;
-                $callCount++;
+        $this->setupUrlMocks($urlMock1, '/path1', 'http://site1.com/path1', 'store1');
+        $this->setupUrlMocks($urlMock2, '/path2', 'http://site2.com/path2', 'store2');
 
-                if ($callCount === 1) {
-                    return $urlMock1;
-                }
+        $this->setupStoreMocks($storeMock1, 'store1', 2);
+        $this->setupStoreMocks($storeMock2, 'store2', 2);
 
-                return $urlMock2;
-            });
+        $this->setupUrlRewriteMocks($urlRewriteMock1, '/path1');
+        $this->setupUrlRewriteMocks($urlRewriteMock2, '/path2');
 
-        $this->urlFinderMock
-            ->expects($this->exactly(2))
+        $this->setupUrlFactoryMock($urlMock1, $urlMock2);
+        $this->urlFinderMock->expects($this->exactly(2))
             ->method('findAllByData')
             ->willReturnCallback(function ($data) use ($urlRewriteMock1, $urlRewriteMock2) {
                 $expected1 = ['store_id' => 'store1', 'entity_type' => 'category'];
@@ -135,8 +95,7 @@ class EntityTest extends TestCase
                 return [];
             });
 
-        $this->urlFixerMock
-            ->expects($this->exactly(2))
+        $this->urlFixerMock->expects($this->exactly(2))
             ->method('run')
             ->willReturnCallback(function ($store, $url) use ($storeMock1, $storeMock2) {
                 static $callCount = 0;
@@ -154,7 +113,6 @@ class EntityTest extends TestCase
             });
 
         $entity = $this->createEntity('category', [$storeMock1, $storeMock2]);
-
         $this->assertEquals(
             [
                 'http://site1.com/fixed/path1',
@@ -162,6 +120,44 @@ class EntityTest extends TestCase
             ],
             $entity->get()
         );
+    }
+
+    private function setupStoreMocks($storeMock, $storeId, $times)
+    {
+        $storeMock->expects($this->exactly($times))
+        ->method('getId')
+        ->willReturn($storeId);
+    }
+
+    private function setupUrlMocks($urlMock, $requestPath, $returnUrl, $storeId)
+    {
+        $urlMock->expects($this->any())
+            ->method('setScope')
+            ->with($storeId)
+            ->willReturnSelf();
+        $urlMock->expects($this->any())
+            ->method('getUrl')
+            ->with($requestPath)
+            ->willReturn($returnUrl);
+    }
+
+    private function setupUrlRewriteMocks($urlRewriteMock, $requestPath)
+    {
+        $urlRewriteMock->expects($this->once())
+            ->method('getRequestPath')
+            ->willReturn($requestPath);
+    }
+
+    private function setupUrlFactoryMock($urlMock1, $urlMock2)
+    {
+        $this->urlFactoryMock->expects($this->exactly(2))
+            ->method('create')
+            ->willReturnCallback(function () use ($urlMock1, $urlMock2) {
+                static $callCount = 0;
+                $callCount++;
+
+                return $callCount === 1 ? $urlMock1 : $urlMock2;
+            });
     }
 
     /**
