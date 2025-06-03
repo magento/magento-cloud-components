@@ -73,7 +73,7 @@ class UrlFixerTest extends TestCase
     /**
      * @return array
      */
-    public function runDataProvider(): array
+    public static function runDataProvider(): array
     {
         return [
             'rewrites enabled, url without "magento" part' => [
