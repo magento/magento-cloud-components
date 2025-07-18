@@ -7,7 +7,10 @@
     "php": "^8.0",
     "ext-json": "*",
     "colinmollenhour/cache-backend-redis": "^1.14.2",
-    "colinmollenhour/credis": "^1.6.0 || ^1.13"
+    "colinmollenhour/credis": "^1.6.0 || ^1.13",
+    "magento/framework": "*",
+    "magento/module-store": "*",
+    "magento/module-url-rewrite": "*"
   },
   "suggest": {
     "magento/framework": "*",
@@ -27,7 +30,10 @@
     "squizlabs/php_codesniffer": "^3.7"
   },
   "config": {
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "magento/composer-dependency-version-audit-plugin": true
+    }
   },
   "scripts": {
     "test": [
@@ -49,6 +55,12 @@
     "psr-4": {
       "Magento\\CloudComponents\\": "",
       "Magento\\CloudComponents\\Test\\Functional\\": "tests/functional/"
+    }
+  },
+  "repositories": {
+    "magento": {
+      "type": "composer",
+      "url": "https://repo.magento.com/"
     }
   }
 }
