@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace Magento\CloudComponents\Test\Functional\Acceptance;
 
 /**
- * @group php83
+ * @group php84
  */
 class Acceptance83Cest extends AcceptanceCest
 {
@@ -18,7 +18,7 @@ class Acceptance83Cest extends AcceptanceCest
     protected function patchesDataProvider(): array
     {
         return [
-            ['magentoVersion' => '2.4.7'],
+            ['magentoVersion' => '2.4.8'],
         ];
     }
 }
