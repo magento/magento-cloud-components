@@ -14,12 +14,14 @@ use Magento\Framework\UrlInterface;
 use Magento\Store\Model\Store;
 use Magento\UrlRewrite\Model\UrlFinderInterface;
 use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @inheritDoc
  */
+#[AllowMockObjectsWithoutExpectations]
 class EntityTest extends TestCase
 {
     /**
@@ -47,7 +49,7 @@ class EntityTest extends TestCase
         $this->urlFixerMock = $this->createMock(UrlFixer::class);
     }
 
-    public function testGetEmptyStores()
+    public function testGetEmptyStores(): void
     {
         $this->urlFactoryMock->expects($this->never())
             ->method('create');
@@ -57,7 +59,7 @@ class EntityTest extends TestCase
         $this->assertEquals([], $entity->get());
     }
 
-    public function testGet()
+    public function testGet(): void
     {
         $storeMock1 = $this->createMock(Store::class);
         $storeMock2 = $this->createMock(Store::class);

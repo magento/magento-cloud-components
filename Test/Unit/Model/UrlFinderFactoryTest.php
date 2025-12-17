@@ -12,6 +12,7 @@ use Magento\CloudComponents\Model\UrlFinder\Product;
 use Magento\CloudComponents\Model\UrlFinderFactory;
 use Magento\CloudComponents\Model\UrlFinderInterface;
 use Magento\Framework\ObjectManagerInterface;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
@@ -19,6 +20,7 @@ use UnexpectedValueException;
 /**
  * @inheritDoc
  */
+#[AllowMockObjectsWithoutExpectations]
 class UrlFinderFactoryTest extends TestCase
 {
     /**
@@ -36,7 +38,7 @@ class UrlFinderFactoryTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->objectManagerMock = $this->getMockForAbstractClass(ObjectManagerInterface::class);
+        $this->objectManagerMock = $this->createMock(ObjectManagerInterface::class);
 
         $this->urlFinderFactory = new UrlFinderFactory($this->objectManagerMock);
     }
@@ -49,7 +51,7 @@ class UrlFinderFactoryTest extends TestCase
                 'entityType' => 'category',
                 'stores' => ['store1'],
             ])
-            ->willReturn($this->getMockForAbstractClass(UrlFinderInterface::class));
+            ->willReturn($this->createMock(UrlFinderInterface::class));
 
         $this->urlFinderFactory->create('category', [
             'stores' => ['store1'],
@@ -65,7 +67,7 @@ class UrlFinderFactoryTest extends TestCase
                 'productSku' => ['sku1', 'sku2'],
                 'productLimit' => 100
             ])
-            ->willReturn($this->getMockForAbstractClass(UrlFinderInterface::class));
+            ->willReturn($this->createMock(UrlFinderInterface::class));
 
         $this->urlFinderFactory->create('product', [
             'stores' => ['store1'],
