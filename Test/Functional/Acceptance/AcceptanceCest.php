@@ -7,6 +7,10 @@ declare(strict_types=1);
 
 namespace Magento\CloudComponents\Test\Functional\Acceptance;
 
+use CliTester;
+use Codeception\Example;
+use Robo\Exception\TaskException;
+
 /**
  * Class AcceptanceCest
  *
@@ -15,25 +19,32 @@ namespace Magento\CloudComponents\Test\Functional\Acceptance;
 abstract class AcceptanceCest
 {
     /**
-     * @param \CliTester $I
+     * Prepares the testing environment by cleaning up the working directory before each test.
+     *
+     * @param CliTester $I
+     * @return void
      */
-    public function _before(\CliTester $I): void
+    public function _before(CliTester $I): void
     {
         $I->cleanupWorkDir();
     }
 
     /**
-     * @param \CliTester $I
-     * @param string $magentoVersion
+     * Prepares the template for testing by cloning the specified version, setting up authentication, and configuring dependencies.
+     *
+     * @param CliTester $I
+     * @param string $templateVersion
+     * @return void
+     * @throws TaskException
      */
-    protected function prepareTemplate(\CliTester $I, string $magentoVersion): void
+    protected function prepareTemplate(CliTester $I, string $templateVersion): void
     {
-        $I->cloneTemplateToWorkDir($magentoVersion);
+        $I->cloneTemplateToWorkDir($templateVersion);
         $I->createAuthJson();
         $I->createArtifactsDir();
-        $I->createArtifactCurrentTestedCode('components', '1.0.99');
+        $I->createArtifactCurrentTestedCode('components', '1.1.99');
         $I->addArtifactsRepoToComposer();
-        $I->addDependencyToComposer('magento/magento-cloud-components', '1.0.99');
+        $I->addDependencyToComposer('magento/magento-cloud-components', '1.1.99');
 
         $I->addEceToolsGitRepoToComposer();
         $I->addEceDockerGitRepoToComposer();
@@ -58,15 +69,19 @@ abstract class AcceptanceCest
     }
 
     /**
-     * @param \CliTester $I
-     * @param \Codeception\Example $data
-     * @throws \Robo\Exception\TaskException
+     * Tests the application of patches by preparing the template, generating Docker Compose files,
+     * deploying the environment, and verifying the home page content.
+     * 
+     * @param CliTester $I
+     * @param Example $data
+     * @return void
+     * @throws TaskException
      * @dataProvider patchesDataProvider
      */
-    public function testPatches(\CliTester $I, \Codeception\Example $data): void
+    public function testPatches(CliTester $I, Example $data): void
     {
-        $this->prepareTemplate($I, $data['magentoVersion']);
-        $this->removeESIfExists($I, $data['magentoVersion']);
+        $this->prepareTemplate($I, $data['templateVersion']);
+        $this->removeESIfExists($I, $data['templateVersion']);
         $I->generateDockerCompose('--mode=production');
         $I->runDockerComposeCommand('run build cloud-build');
         $I->startEnvironment();
@@ -78,12 +93,15 @@ abstract class AcceptanceCest
     }
 
     /**
-     * @param \CliTester $I
-     * @param string $magentoVersion
+     * Removes Elasticsearch configuration if it exists and the template version is less than 2.4.0.
+     *
+     * @param CliTester $I
+     * @param string $templateVersion
+     * @return void
      */
-    protected function removeESIfExists(\CliTester $I, string $magentoVersion): void
+    protected function removeESIfExists(CliTester $I, string $templateVersion): void
     {
-        if ($magentoVersion !== 'master' && version_compare($magentoVersion, '2.4.0', '<')) {
+        if ($templateVersion !== 'master' && version_compare($templateVersion, '2.4.0', '<')) {
             $services = $I->readServicesYaml();
 
             if (isset($services['elasticsearch'])) {
@@ -98,14 +116,20 @@ abstract class AcceptanceCest
     }
 
     /**
+     * Provides data for testing patches.
+     *
      * @return array
      */
     abstract protected function patchesDataProvider(): array;
 
     /**
-     * @param \CliTester $I
+     * Cleans up the testing environment by stopping any running environment
+     * and removing the working directory after each test.
+     *
+     * @param CliTester $I
+     * @return void
      */
-    public function _after(\CliTester $I): void
+    public function _after(CliTester $I): void
     {
         $I->stopEnvironment();
         $I->removeWorkDir();

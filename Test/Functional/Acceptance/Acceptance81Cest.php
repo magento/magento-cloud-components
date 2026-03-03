@@ -13,6 +13,8 @@ namespace Magento\CloudComponents\Test\Functional\Acceptance;
 class Acceptance81Cest extends AcceptanceCest
 {
     /**
+     * Patches data provider.
+     *
      * @return array
      */
     protected function patchesDataProvider(): array

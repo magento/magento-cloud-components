@@ -13,14 +13,14 @@ namespace Magento\CloudComponents\Test\Functional\Acceptance;
 class Acceptance85Cest extends AcceptanceCest
 {
     /**
-     * Patches data provider
+     * Patches data provider.
      *
      * @return array
      */
     protected function patchesDataProvider(): array
     {
         return [
-            ['magentoVersion' => '2.4.9-beta1'],
+            ['templateVersion' => '2.4.9-alpha-opensearch3.0'],
         ];
     }
 }

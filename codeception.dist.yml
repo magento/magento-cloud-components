@@ -23,6 +23,13 @@ modules:
       composer_magento_username: "%REPO_USERNAME%"
       composer_magento_password: "%REPO_PASSWORD%"
       composer_github_token: "%GITHUB_TOKEN%"
+      composer_qa_username: "%QA_USERNAME%"
+      composer_qa_password: "%QA_PASSWORD%"
+      composer_github_token: "%GITHUB_TOKEN%"
+      additional_creds:
+        - host: "connect20-qa01.magedevteam.com"
+          username: "%QA_USERNAME%"
+          password: "%QA_PASSWORD%"
       printOutput: false
     Magento\CloudDocker\Test\Functional\Codeception\Docker:
       system_magento_dir: "%Magento.docker.settings.system.magento_dir%"
