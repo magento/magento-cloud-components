@@ -17,8 +17,8 @@ modules:
   config:
     Magento\CloudDocker\Test\Functional\Codeception\TestInfrastructure:
       template_repo: "https://github.com/magento/magento-cloud.git"
+      ece_repo: "https://github.com/magento/ece-tools.git"
       mcd_repo: "https://github.com/magento/magento-cloud-docker.git"
-      mcc_repo: "https://github.com/magento/magento-cloud-components.git"
       mcp_repo: "https://github.com/magento/magento-cloud-patches.git"
       composer_magento_username: "%REPO_USERNAME%"
       composer_magento_password: "%REPO_PASSWORD%"
@@ -30,6 +30,7 @@ modules:
           username: "%QA_USERNAME%"
           password: "%QA_PASSWORD%"
       printOutput: false
+      use_cached_workdir: false
     Magento\CloudDocker\Test\Functional\Codeception\Docker:
       system_magento_dir: "%Magento.docker.settings.system.magento_dir%"
       printOutput: false
