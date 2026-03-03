@@ -25,7 +25,6 @@ modules:
       composer_github_token: "%GITHUB_TOKEN%"
       composer_qa_username: "%QA_USERNAME%"
       composer_qa_password: "%QA_PASSWORD%"
-      composer_github_token: "%GITHUB_TOKEN%"
       additional_creds:
         - host: "connect20-qa01.magedevteam.com"
           username: "%QA_USERNAME%"
