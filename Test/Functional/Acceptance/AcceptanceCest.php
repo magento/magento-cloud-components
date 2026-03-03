@@ -30,7 +30,8 @@ abstract class AcceptanceCest
     }
 
     /**
-     * Prepares the template for testing by cloning the specified version, setting up authentication, and configuring dependencies.
+     * Prepares the template for testing by cloning the specified version,
+     * setting up authentication, and configuring dependencies.
      *
      * @param CliTester $I
      * @param string $templateVersion
@@ -71,7 +72,7 @@ abstract class AcceptanceCest
     /**
      * Tests the application of patches by preparing the template, generating Docker Compose files,
      * deploying the environment, and verifying the home page content.
-     * 
+     *
      * @param CliTester $I
      * @param Example $data
      * @return void
