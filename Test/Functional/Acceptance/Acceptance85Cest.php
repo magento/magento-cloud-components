@@ -8,9 +8,9 @@ declare(strict_types=1);
 namespace Magento\CloudComponents\Test\Functional\Acceptance;
 
 /**
- * @group php81
+ * @group php85
  */
-class Acceptance81Cest extends AcceptanceCest
+class Acceptance85Cest extends AcceptanceCest
 {
     /**
      * Patches data provider.
@@ -20,8 +20,7 @@ class Acceptance81Cest extends AcceptanceCest
     protected function patchesDataProvider(): array
     {
         return [
-            ['templateVersion' => '2.4.4'],
-            ['templateVersion' => '2.4.5'],
+            ['templateVersion' => '2.4.9-alpha-opensearch3.0'],
         ];
     }
 }

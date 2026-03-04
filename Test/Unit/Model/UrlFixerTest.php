@@ -9,6 +9,7 @@ namespace Magento\CloudComponents\Test\Unit\Model;
 
 use Magento\CloudComponents\Model\UrlFixer;
 use Magento\Store\Model\Store;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -34,19 +35,21 @@ class UrlFixerTest extends TestCase
     {
         $this->storeMock = $this->getMockBuilder(Store::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(['getConfig'])
-            ->addMethods(['getForceDisableRewrites'])
+            ->onlyMethods(['getConfig', 'getData'])
             ->getMock();
         $this->urlFixer = new UrlFixer();
     }
 
     /**
+     * Tests URL fixing behavior based on rewrite configuration flags.
+     *
      * @param bool $rewritesDisabled
      * @param bool $useConfigRewrites
      * @param string $url
      * @param string $expectedUrl
      * @dataProvider runDataProvider
      */
+    #[DataProvider('runDataProvider')]
     public function testRunWithConfigRewrites(
         string $url,
         string $expectedUrl,
@@ -54,7 +57,7 @@ class UrlFixerTest extends TestCase
         bool $useConfigRewrites = true
     ) {
         $this->storeMock->expects($this->once())
-            ->method('getForceDisableRewrites')
+            ->method('getData')
             ->willReturn($rewritesDisabled);
 
         if (!$rewritesDisabled) {
@@ -71,6 +74,8 @@ class UrlFixerTest extends TestCase
     }
 
     /**
+     * Provides test cases for URL rewrite handling.
+     *
      * @return array
      */
     public static function runDataProvider(): array
